@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sixvalley/core/constant/app_colors.dart';
-import 'package:sixvalley/screen/home_page.dart';
+import 'package:sixvalley/core/theme/app_theme.dart';
+import 'package:sixvalley/screen/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: AppColors.lightColorScheme,
-        scaffoldBackgroundColor: AppColors.lightColorScheme.background,
-      ),
-      home: const HomePage(),
+      title: 'Six Valley',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.light,
+      home: const MainScreen(),
     );
   }
 }

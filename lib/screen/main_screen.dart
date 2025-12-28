@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import 'package:sixvalley/core/widgets/custom_bottom_nav_bar.dart';
+import 'package:sixvalley/screen/home_page.dart';
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    const HomePage(),
+    const _PlaceholderPage(title: 'Categories'),
+    const _PlaceholderPage(title: 'Cart'),
+    const _PlaceholderPage(title: 'Stores'),
+    const _PlaceholderPage(title: 'Menu'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexedStack(index: _currentIndex, children: _pages),
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: _currentIndex,
+        cartItemCount: 6,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+    );
+  }
+}
+
+// Temporary placeholder for other pages
+class _PlaceholderPage extends StatelessWidget {
+  final String title;
+
+  const _PlaceholderPage({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text(title, style: Theme.of(context).textTheme.displaySmall),
+      ),
+    );
+  }
+}
