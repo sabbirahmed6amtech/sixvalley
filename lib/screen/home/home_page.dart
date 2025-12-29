@@ -1,6 +1,14 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:sixvalley/screen/home/widgets/custom_slider.dart';
+import 'package:sixvalley/screen/home/widgets/featured_products.dart';
 import 'package:sixvalley/screen/home/widgets/home_header.dart';
 import 'package:sixvalley/screen/home/widgets/dummy_placeholder.dart';
+import 'package:sixvalley/screen/home/widgets/one_time_deal.dart';
+import 'package:sixvalley/screen/home/widgets/todays_deal.dart';
+
+import '../../core/constant/app_colors.dart';
+import '../../core/theme/app_theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,10 +34,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+        ? AppColors.black
+        : AppColors.white,
       body: Column(
         children: [
-          // ===== FIXED HEADER SECTION =====
+          // FIXED HEADER SECTION
           HomeHeader(
             selectedCategoryIndex: _selectedCategoryIndex,
             categories: _categories,
@@ -40,22 +50,26 @@ class _HomePageState extends State<HomePage> {
             },
           ),
 
-          // ===== SCROLLABLE CONTENT =====
+          //SCROLLABLE CONTENT
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  //One time deal
+                  const OneTimeDeal(),
                   const SizedBox(height: 16),
-                  const DummyPlaceholder(title: 'Banner Section', height: 180),
+                  //Slider
+                  // Padding(padding: const EdgeInsets.all(8.0), child: Image.asset("assets/images/bigsale.png"),),
+                  CustomSlider(),
                   const SizedBox(height: 16),
-                  const DummyPlaceholder(title: 'Categories Grid', height: 200),
+                  //Feature Product
+                  const FeaturedProducts(),
+                  //Todays Deal
+                  const TodaysDeal(),
+                  Padding(padding: const EdgeInsets.all(12.0), child: Image.asset("assets/images/banner1.png"),),
+                  const DummyPlaceholder(title: 'New User Excusive', height: 250,),
                   const SizedBox(height: 16),
-                  const DummyPlaceholder(
-                    title: 'Featured Products',
-                    height: 250,
-                  ),
-                  const SizedBox(height: 16),
-                  const DummyPlaceholder(title: 'Flash Sale', height: 200),
+                  Padding(padding: const EdgeInsets.all(12.0), child: Image.asset("assets/images/banner2.png"),),
                   const SizedBox(height: 16),
                   const DummyPlaceholder(title: 'New Arrivals', height: 250),
                   const SizedBox(height: 16),
@@ -71,5 +85,8 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+
   }
 }
+
+

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sixvalley/core/widgets/custom_bottom_nav_bar.dart';
-import 'package:sixvalley/screen/home_page.dart';
+
+import 'home/home_page.dart';
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

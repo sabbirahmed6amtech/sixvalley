@@ -22,7 +22,7 @@ class HomeHeader extends StatelessWidget {
         bottom: false,
         child: Column(
           children: [
-            // Welcome & Profile Row
+            //Text part
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
               child: Row(
@@ -64,7 +64,7 @@ class HomeHeader extends StatelessWidget {
 
             // Category Tabs
             SizedBox(
-              height: 36,
+              height: 30,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -108,12 +108,34 @@ class HomeHeader extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 8),
+            // search- bar part
             Container(
-              height: 80,
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? AppColors.black
-                  : AppColors.white,
+              height: 70,
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? AppColors.black
+                    : AppColors.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          hintText: 'What are you looking for?',
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.search),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

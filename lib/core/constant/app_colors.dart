@@ -1,4 +1,119 @@
 import 'package:flutter/material.dart';
+class AppColors {
+  AppColors._();
+
+  //Primary Colors
+  static const Color primary = Color(0xFF1455AC);
+  static const Color primaryLight = Color(0xFFE9F3FF);
+  static const Color primaryLight10 = Color(0x1AE9F3FF); // 10% opacity
+
+  //Secondary Colors
+  static const Color secondary = Color(0xFFF58300);
+
+  // Success / Positive
+  static const Color success = Color(0xFF00AA6D);
+
+  //  Warning / Attention
+  static const Color warning = Color(0xFFFFAD31);
+
+  //Cancel / Negative / Error
+  static const Color error = Color(0xFFFF5555);
+  static const Color errorBackground = Color(0xFFFFF4F3);
+
+  // Text Colors
+  static const Color textColor = Color(0xFF1C1E20);
+  static const Color subtitle = Color(0xFF595959);
+  static const Color deactive = Color(0xFFAFB1B5);
+  static const Color deactive17 = Color(0x2BAFB1B5); // 17% opacity
+
+  // Background Colors
+  static const Color background = Color(0xFFF8F8F9);
+  static const Color cardWhite = Color(0xFFFFFFFF);
+  static const Color menuBackground = Color(0xFFFCFCFC);
+  static const Color cardcustom = Color(0xFFF3F6F8);
+  static const Color categorySidebar = Color(0x2BAFB1B5); // 17% opacity
+
+  // Other
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color black = Color(0xFF000000);
+
+  // Dark Theme Colors
+  static const Color darkBackground = Color(0xFF02070E);
+  static const Color darkTextColor = Color(0xFFFFFFFF);
+
+  // Light Color Scheme
+  static final ColorScheme lightColorScheme = ColorScheme(
+    brightness: Brightness.light,
+    primary: primary,
+    onPrimary: white,
+    primaryContainer: primaryLight,
+    onPrimaryContainer: primary,
+    secondary: secondary,
+    onSecondary: white,
+    secondaryContainer: Color(0xFFFFE2BF),
+    onSecondaryContainer: Color(0xFF4A2A00),
+    tertiary: success,
+    onTertiary: white,
+    tertiaryContainer: Color(0xFFCFF3E4),
+    onTertiaryContainer: Color(0xFF003824),
+    error: error,
+    onError: white,
+    errorContainer: errorBackground,
+    onErrorContainer: Color(0xFF7A0000),
+    surface: cardWhite,
+    onSurface: textColor,
+    surfaceContainerHighest: background,
+    onSurfaceVariant: subtitle,
+    outline: deactive,
+    outlineVariant: deactive17,
+    shadow: black,
+    scrim: black,
+    inverseSurface: textColor,
+    onInverseSurface: white,
+    inversePrimary: primaryLight,
+  );
+
+  // Dark Color Scheme
+  static final ColorScheme darkColorScheme = ColorScheme(
+    brightness: Brightness.dark,
+    primary: primary,
+    onPrimary: white,
+    primaryContainer: primaryLight,
+    onPrimaryContainer: primary,
+    secondary: secondary,
+    onSecondary: white,
+    secondaryContainer: Color(0xFFFFE2BF),
+    onSecondaryContainer: Color(0xFF4A2A00),
+    tertiary: success,
+    onTertiary: white,
+    tertiaryContainer: Color(0xFFCFF3E4),
+    onTertiaryContainer: Color(0xFF003824),
+    error: error,
+    onError: white,
+    errorContainer: errorBackground,
+    onErrorContainer: Color(0xFF7A0000),
+    surface: darkBackground,
+    onSurface: darkTextColor,
+    surfaceContainerHighest: Color(0xFF1C1E20),
+    onSurfaceVariant: subtitle,
+    outline: deactive,
+    outlineVariant: deactive17,
+    shadow: black,
+    scrim: black,
+    inverseSurface: white,
+    onInverseSurface: darkBackground,
+    inversePrimary: primaryLight,
+  );
+}
+
+
+
+
+
+
+
+
+
 
 /// ═══════════════════════════════════════════════════════════════════════════════
 /// HOW TO USE AppColors:
@@ -31,109 +146,3 @@ import 'package:flutter/material.dart';
 ///    Text('Hello', style: TextStyle(color: Theme.of(context).colorScheme.onSurface))
 ///
 /// ═══════════════════════════════════════════════════════════════════════════════
-
-class AppColors {
-  AppColors._();
-
-  // ============== Primary Colors ==============
-  static const Color primary = Color(0xFF1455AC);
-  static const Color primaryLight = Color(0xFFE9F3FF);
-  static const Color primaryLight10 = Color(0x1AE9F3FF); // 10% opacity
-
-  // ============== Secondary Colors ==============
-  static const Color secondary = Color(0xFFF58300);
-
-  // ============== Success / Positive ==============
-  static const Color success = Color(0xFF00AA6D);
-
-  // ============== Warning / Attention ==============
-  static const Color warning = Color(0xFFFFAD31);
-
-  // ============== Cancel / Negative / Error ==============
-  static const Color error = Color(0xFFFF5555);
-  static const Color errorBackground = Color(0xFFFFF4F3);
-
-  // ============== Text Colors ==============
-  static const Color textColor = Color(0xFF1C1E20);
-  static const Color subtitle = Color(0xFF595959);
-  static const Color deactive = Color(0xFFAFB1B5);
-  static const Color deactive17 = Color(0x2BAFB1B5); // 17% opacity
-
-  // ============== Background Colors ==============
-  static const Color background = Color(0xFFF8F8F9);
-  static const Color cardWhite = Color(0xFFFFFFFF);
-  static const Color menuBackground = Color(0xFFFCFCFC);
-  static const Color categorySidebar = Color(0x2BAFB1B5); // 17% opacity
-
-  // ============== Other ==============
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color black = Color(0xFF000000);
-
-  // ============== Dark Theme Colors ==============
-  static const Color darkBackground = Color(0xFF02070E);
-  static const Color darkTextColor = Color(0xFFFFFFFF);
-
-  // ============== Light Color Scheme ==============
-  static final ColorScheme lightColorScheme = ColorScheme(
-    brightness: Brightness.light,
-    primary: primary,
-    onPrimary: white,
-    primaryContainer: primaryLight,
-    onPrimaryContainer: primary,
-    secondary: secondary,
-    onSecondary: white,
-    secondaryContainer: Color(0xFFFFE2BF),
-    onSecondaryContainer: Color(0xFF4A2A00),
-    tertiary: success,
-    onTertiary: white,
-    tertiaryContainer: Color(0xFFCFF3E4),
-    onTertiaryContainer: Color(0xFF003824),
-    error: error,
-    onError: white,
-    errorContainer: errorBackground,
-    onErrorContainer: Color(0xFF7A0000),
-    surface: cardWhite,
-    onSurface: textColor,
-    surfaceContainerHighest: background,
-    onSurfaceVariant: subtitle,
-    outline: deactive,
-    outlineVariant: deactive17,
-    shadow: black,
-    scrim: black,
-    inverseSurface: textColor,
-    onInverseSurface: white,
-    inversePrimary: primaryLight,
-  );
-
-  // ============== Dark Color Scheme ==============
-  static final ColorScheme darkColorScheme = ColorScheme(
-    brightness: Brightness.dark,
-    primary: primary,
-    onPrimary: white,
-    primaryContainer: primaryLight,
-    onPrimaryContainer: primary,
-    secondary: secondary,
-    onSecondary: white,
-    secondaryContainer: Color(0xFFFFE2BF),
-    onSecondaryContainer: Color(0xFF4A2A00),
-    tertiary: success,
-    onTertiary: white,
-    tertiaryContainer: Color(0xFFCFF3E4),
-    onTertiaryContainer: Color(0xFF003824),
-    error: error,
-    onError: white,
-    errorContainer: errorBackground,
-    onErrorContainer: Color(0xFF7A0000),
-    surface: darkBackground,
-    onSurface: darkTextColor,
-    surfaceContainerHighest: Color(0xFF1C1E20),
-    onSurfaceVariant: subtitle,
-    outline: deactive,
-    outlineVariant: deactive17,
-    shadow: black,
-    scrim: black,
-    inverseSurface: white,
-    onInverseSurface: darkBackground,
-    inversePrimary: primaryLight,
-  );
-}

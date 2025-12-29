@@ -50,13 +50,13 @@ class AppTypography {
   static const String fontInter = 'Inter';
   static const String fontRedRose = 'RedRose';
 
-  // ============== Font Weights ==============
+  // Font Weights
   static const FontWeight regular = FontWeight.w400;
   static const FontWeight medium = FontWeight.w500;
   static const FontWeight semiBold = FontWeight.w600;
   static const FontWeight bold = FontWeight.w700;
 
-  // ============== Heading Styles (Inter) ==============
+  // Heading Styles (Inter)
 
   // H9 - 30px Bold
   static const TextStyle h9Bold = TextStyle(
@@ -162,7 +162,7 @@ class AppTypography {
     color: AppColors.textColor,
   );
 
-  // ============== Red Rose Font Styles ==============
+  // Red Rose Font Styles
   static const TextStyle redRoseRegular = TextStyle(
     fontFamily: fontRedRose,
     fontWeight: regular,
