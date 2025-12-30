@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sixvalley/core/constant/app_colors.dart';
 import 'package:sixvalley/core/constant/app_typography.dart';
 import 'package:sixvalley/config/size_config.dart';
-import 'package:sixvalley/model/product_model.dart';
+
+import '../model/product_model.dart';
 
 class TodaysDeal extends StatelessWidget {
   final ProductModel? product;

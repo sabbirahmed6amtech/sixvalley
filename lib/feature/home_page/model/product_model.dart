@@ -1,5 +1,3 @@
-/// Unified Product Model
-/// Supports all product card variations (deal, featured, etc.)
 class ProductModel {
   final String id;
   final String name;
@@ -89,6 +87,79 @@ class ProductModel {
       discountPercent: 4,
       isFavorite: false,
     ),
+    const ProductModel(
+      id: '1',
+      name: 'Blue Color Short Dr...',
+      imageUrl: 'assets/images/image1.png',
+      currentPrice: 3237.87,
+      originalPrice: 1100,
+      discountPercent: 10,
+      isFavorite: true,
+    ),
+    const ProductModel(
+      id: '2',
+      name: 'Blue Color Short Dr...',
+      imageUrl: 'assets/images/prod2.png',
+      currentPrice: 12.09,
+      originalPrice: 1100,
+      discountPercent: 5,
+      isFavorite: false,
+    ),
+    const ProductModel(
+      id: '3',
+      name: 'Blue Color Short',
+      imageUrl: 'assets/images/prod3.png',
+      currentPrice: 12.09,
+      originalPrice: 1100,
+      discountPercent: 4,
+      isFavorite: false,
+    ),
+    const ProductModel(
+      id: '4',
+      name: 'Blue Color Short',
+      imageUrl: 'assets/images/prod2.png',
+      currentPrice: 12.09,
+      originalPrice: 1100,
+      discountPercent: 4,
+      isFavorite: false,
+    ),
+    const ProductModel(
+      id: '1',
+      name: 'Blue Color Short Dr...',
+      imageUrl: 'assets/images/image1.png',
+      currentPrice: 3237.87,
+      originalPrice: 1100,
+      discountPercent: 10,
+      isFavorite: true,
+    ),
+    const ProductModel(
+      id: '2',
+      name: 'Blue Color Short Dr...',
+      imageUrl: 'assets/images/prod2.png',
+      currentPrice: 12.09,
+      originalPrice: 1100,
+      discountPercent: 5,
+      isFavorite: false,
+    ),
+    const ProductModel(
+      id: '3',
+      name: 'Blue Color Short',
+      imageUrl: 'assets/images/prod3.png',
+      currentPrice: 12.09,
+      originalPrice: 1100,
+      discountPercent: 4,
+      isFavorite: false,
+    ),
+    const ProductModel(
+      id: '4',
+      name: 'Blue Color Short',
+      imageUrl: 'assets/images/prod2.png',
+      currentPrice: 12.09,
+      originalPrice: 1100,
+      discountPercent: 4,
+      isFavorite: false,
+    ),
+
   ];
 
   /// Sample data for Featured products (larger cards, with rating & badge)
@@ -126,6 +197,44 @@ class ProductModel {
       discountPercent: 4,
       rating: 4.5,
       reviewCount: 12,
+      isFavorite: false,
+    ),
+  ];
+
+  static List<ProductModel> newUserExclusive = [
+    const ProductModel(
+      id: '1',
+      name: 'Blue Color Short Dr...',
+      imageUrl: 'assets/images/new1.png',
+      currentPrice: 3237.87,
+      originalPrice: 1100,
+      badge: "New",
+      discountPercent: 10,
+      isFavorite: true,
+    ),
+    const ProductModel(
+      id: '2',
+      name: 'Red Color Short Dress for Girls with fashionable dress',
+      imageUrl: 'assets/images/new2.png',
+      currentPrice: 323.87,
+      isFavorite: false,
+    ),
+    const ProductModel(
+      id: '3',
+      name: 'Blue Color Short',
+      imageUrl: 'assets/images/prod3.png',
+      currentPrice: 12.09,
+      originalPrice: 1100,
+      discountPercent: 4,
+      isFavorite: false,
+    ),
+    const ProductModel(
+      id: '4',
+      name: 'Blue Color Short',
+      imageUrl: 'assets/images/prod2.png',
+      currentPrice: 12.09,
+      originalPrice: 1100,
+      discountPercent: 4,
       isFavorite: false,
     ),
   ];

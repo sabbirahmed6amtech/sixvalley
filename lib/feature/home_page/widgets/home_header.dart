@@ -19,7 +19,7 @@ class HomeHeader extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(color: AppColors.primary),
       child: SafeArea(
-        bottom: false,
+        bottom: true,
         child: Column(
           children: [
             //Text part
@@ -52,10 +52,6 @@ class HomeHeader extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(color: AppColors.white, width: 2),
-                      image: const DecorationImage(
-                        image: NetworkImage('https://i.pravatar.cc/150?img=8'),
-                        fit: BoxFit.cover,
-                      ),
                     ),
                   ),
                 ],
@@ -105,36 +101,6 @@ class HomeHeader extends StatelessWidget {
                     ),
                   );
                 },
-              ),
-            ),
-
-            // search- bar part
-            Container(
-              height: 70,
-              decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? AppColors.black
-                    : AppColors.white,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          hintText: 'What are you looking for?',
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.search),
-                    ),
-                  ],
-                ),
               ),
             ),
           ],

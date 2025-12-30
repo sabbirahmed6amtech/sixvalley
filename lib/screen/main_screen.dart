@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sixvalley/core/widgets/custom_bottom_nav_bar.dart';
 
-import 'home/home_page.dart';
+import '../config/responsive.dart';
+import '../feature/home_page/home_page.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(index: _currentIndex, children: _pages),
-      bottomNavigationBar: CustomBottomNavBar(
+      bottomNavigationBar: ResponsiveHelper.isMobile(context)? CustomBottomNavBar(
         currentIndex: _currentIndex,
         cartItemCount: 6,
         onTap: (index) {
@@ -34,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
             _currentIndex = index;
           });
         },
-      ),
+      ) :null,
     );
   }
 }

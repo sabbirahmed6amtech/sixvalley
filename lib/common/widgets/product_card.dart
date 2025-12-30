@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sixvalley/core/constant/app_colors.dart';
 import 'package:sixvalley/core/constant/app_typography.dart';
-import 'package:sixvalley/model/product_model.dart';
+import '../../feature/home_page/model/product_model.dart';
 class ProductCard extends StatelessWidget {
   final ProductModel product;
   final VoidCallback? onTap;
@@ -32,7 +32,6 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Image Section
             _ProductImage(
               imageUrl: product.imageUrl,
               isFavorite: product.isFavorite,
@@ -61,8 +60,6 @@ class ProductCard extends StatelessWidget {
               ),
             ],
             const SizedBox(height: 4),
-
-            // Current Price
             Text(
               '\$${product.currentPrice.toStringAsFixed(2)}',
               style: AppTypography.h5Bold.copyWith(
@@ -85,7 +82,6 @@ class ProductCard extends StatelessWidget {
   }
 }
 
-/// Product Image with Badge & Favorite Button
 class _ProductImage extends StatelessWidget {
   final String imageUrl;
   final bool isFavorite;
@@ -109,7 +105,6 @@ class _ProductImage extends StatelessWidget {
 
     return Stack(
       children: [
-        // Image
         Container(
           width: width,
           height: height,
@@ -138,7 +133,6 @@ class _ProductImage extends StatelessWidget {
           ),
         ),
 
-        // Badge (New, Best Selling, etc.)
         if (badge != null && badge!.isNotEmpty)
           Positioned(
             left: 0,
@@ -161,7 +155,6 @@ class _ProductImage extends StatelessWidget {
             ),
           ),
 
-        // Favorite Button
         Positioned(
           right: 8,
           bottom: 8,

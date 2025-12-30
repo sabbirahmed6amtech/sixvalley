@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sixvalley/core/constant/app_colors.dart';
 import 'package:sixvalley/core/constant/app_typography.dart';
-import 'package:sixvalley/core/widgets/product_card.dart';
-import 'package:sixvalley/model/product_model.dart';
+import 'package:sixvalley/common/widgets/product_card.dart';
+
+import '../model/product_model.dart';
 
 /// FeaturedProducts
 class FeaturedProducts extends StatelessWidget {
