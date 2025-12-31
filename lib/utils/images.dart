@@ -1,4 +1,7 @@
+// ignore_for_file: unused_element
+
 class Images {
+  static String get logo => 'logo'.png;
   static String get banner1 => 'banner1'.png;
   static String get banner2 => 'banner2'.png;
   static String get bigSale => 'banner2'.png;

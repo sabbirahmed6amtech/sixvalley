@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sixvalley/core/constant/app_colors.dart';
-import 'package:sixvalley/core/constant/app_typography.dart';
-import 'package:sixvalley/config/size_config.dart';
+import 'package:sixvalley/config/responsive.dart';
+import 'package:sixvalley/utils/styles.dart';
 
 import '../model/product_model.dart';
 
@@ -21,44 +20,46 @@ class TodaysDeal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     final colorScheme = Theme.of(context).colorScheme;
 
     final displayProduct = product ?? ProductModel.todaysDealProduct;
 
-    return Container(
-      width: SizeConfig.width * 0.93,
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: colorScheme.shadow.withValues(alpha: 0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Left Side - Banner
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: _TodaysDealBanner(),
-          ),
-
-          // Right Side - Product Details
-          Expanded(
-            child: _TodaysDealProductCard(
-              product: displayProduct,
-              onTap: onProductTap,
-              onFavoriteTap: onFavoriteTap,
-              onAddToCartTap: onAddToCartTap,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: colorScheme.surfaceBright,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: colorScheme.shadow.withValues(alpha: 0.08),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
             ),
-          ),
-        ],
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Left Side - Banner
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ResponsiveHelper.isMobile(context) ? _TodaysDealBanner() : SizedBox.shrink(),
+            ),
+      
+            // Right Side - Product Details
+            Expanded(
+              child: _TodaysDealProductCard(
+                product: displayProduct,
+                onTap: onProductTap,
+                onFavoriteTap: onFavoriteTap,
+                onAddToCartTap: onAddToCartTap,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -69,8 +70,8 @@ class _TodaysDealBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: SizeConfig.width * 0.28,
-      height: SizeConfig.height * 0.24,
+      width: MediaQuery.of(context).size.width * 0.28,
+      height: MediaQuery.of(context).size.height * 0.35,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         image: const DecorationImage(
@@ -102,7 +103,7 @@ class _TodaysDealProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -120,21 +121,21 @@ class _TodaysDealProductCard extends StatelessWidget {
                 if (product.hasRating)
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.star,
-                        color: AppColors.warning,
+                        color: Theme.of(context).secondaryHeaderColor.withValues(alpha: 0.8),
                         size: 14,
                       ),
                       const SizedBox(width: 4),
                       Text(
                         '${product.rating}',
-                        style: AppTypography.h3SemiBold.copyWith(
+                        style: h7SemiBold.copyWith(
                           color: colorScheme.onSurface,
                         ),
                       ),
                       Text(
                         ' (${product.reviewCount} reviews)',
-                        style: AppTypography.h3Regular.copyWith(
+                        style: h7SemiBold.copyWith(
                           color: colorScheme.outline,
                         ),
                       ),
@@ -153,8 +154,8 @@ class _TodaysDealProductCard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         '${product.stockLeft} item left',
-                        style: AppTypography.h3Regular.copyWith(
-                          color: colorScheme.primary,
+                        style: h7Light.copyWith(
+                          color: colorScheme.onSurface,
                         ),
                       ),
                     ],
@@ -166,7 +167,7 @@ class _TodaysDealProductCard extends StatelessWidget {
             // Product Name
             Text(
               product.name,
-              style: AppTypography.h4Regular.copyWith(
+              style: h7Light.copyWith(
                 color: colorScheme.onSurface,
               ),
               maxLines: 1,
@@ -177,7 +178,7 @@ class _TodaysDealProductCard extends StatelessWidget {
             // Price & Add to Cart Row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              // crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 // Price Section
                 Column(
@@ -185,9 +186,8 @@ class _TodaysDealProductCard extends StatelessWidget {
                   children: [
                     Text(
                       '\$10,0,965.00',
-                      style: AppTypography.h5Bold.copyWith(
+                      style: h5Bold.copyWith(
                         color: colorScheme.onSurface,
-                        fontSize: 16,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -196,7 +196,7 @@ class _TodaysDealProductCard extends StatelessWidget {
                         children: [
                           Text(
                             '\$${product.originalPrice!.toStringAsFixed(0)}',
-                            style: AppTypography.h3Regular.copyWith(
+                            style: h7Light.copyWith(
                               color: colorScheme.outline,
                               decoration: TextDecoration.lineThrough,
                               decorationColor: colorScheme.outline,
@@ -214,7 +214,7 @@ class _TodaysDealProductCard extends StatelessWidget {
                             ),
                             child: Text(
                               '-${product.discountPercent}%',
-                              style: AppTypography.h1Bold.copyWith(
+                              style: h7Light.copyWith(
                                 color: colorScheme.error,
                               ),
                             ),
@@ -234,9 +234,9 @@ class _TodaysDealProductCard extends StatelessWidget {
                       color: colorScheme.primary,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.add,
-                      color: AppColors.white,
+                      color: Theme.of(context).colorScheme.surface,
                       size: 20,
                     ),
                   ),
@@ -265,13 +265,13 @@ class _ProductImageWithFavorite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final imageSize = SizeConfig.width * 0.38;
+    final imageSize = MediaQuery.of(context).size.width * 0.62;
 
     return Stack(
       children: [
         // Product Image
         Container(
-          width: double.infinity,
+          width: imageSize,
           height: imageSize,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
@@ -315,7 +315,7 @@ class _ProductImageWithFavorite extends StatelessWidget {
               ),
               child: Icon(
                 isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: isFavorite ? AppColors.error : colorScheme.outline,
+                color: isFavorite ? colorScheme.error : colorScheme.outline,
                 size: 18,
               ),
             ),

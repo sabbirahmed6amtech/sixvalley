@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sixvalley/core/constant/app_typography.dart';
+import 'package:sixvalley/utils/styles.dart';
 
 class DummyPlaceholder extends StatelessWidget {
   final String title;
@@ -24,7 +24,7 @@ class DummyPlaceholder extends StatelessWidget {
       child: Center(
         child: Text(
           title,
-          style: AppTypography.h5Regular.copyWith(
+          style: h5Regular.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),

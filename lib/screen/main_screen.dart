@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sixvalley/core/widgets/custom_bottom_nav_bar.dart';
+import 'package:sixvalley/feature/home_page/widgets/custom_bottom_nav_bar.dart';
+import 'package:sixvalley/utils/dimensions.dart';
 
-import '../config/responsive.dart';
+import '../helper/responsive_helper.dart';
 import '../feature/home_page/home_page.dart';
 
 
@@ -26,7 +27,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _currentIndex, children: _pages),
+      body: Center(child: SizedBox(
+        width: ResponsiveHelper.isDesktop(context)?Dimensions.webMaxWidth:null,
+        child: IndexedStack(index: _currentIndex, children: _pages))),
       bottomNavigationBar: ResponsiveHelper.isMobile(context)? CustomBottomNavBar(
         currentIndex: _currentIndex,
         cartItemCount: 6,

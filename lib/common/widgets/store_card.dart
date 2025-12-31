@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sixvalley/core/constant/app_colors.dart';
-import 'package:sixvalley/core/constant/app_typography.dart';
+import 'package:sixvalley/utils/dimensions.dart';
+import 'package:sixvalley/utils/styles.dart';
 import '../../feature/home_page/model/store_model.dart';
 
 class StoreCard extends StatelessWidget {
@@ -71,11 +71,11 @@ class StoreCard extends StatelessWidget {
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
-                          color: AppColors.primary,
+                          color: Theme.of(context).primaryColor,
                           child: Center(
                             child: Icon(
                               Icons.store,
-                              color: AppColors.white,
+                              color: Theme.of(context).colorScheme.surface,
                               size: 24,
                             ),
                           ),
@@ -92,7 +92,7 @@ class StoreCard extends StatelessWidget {
                         // Store Name
                         Text(
                           store.name,
-                          style: AppTypography.h5Bold.copyWith(
+                          style: h7SemiBold.copyWith(
                             color: colorScheme.onSurface,
                           ),
                           maxLines: 1,
@@ -102,16 +102,16 @@ class StoreCard extends StatelessWidget {
                         if (store.rating != null) ...[
                           Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.star_rounded,
-                                color: AppColors.warning,
+                                color: Theme.of(context).secondaryHeaderColor.withValues(alpha: 0.8),
                                 size: 16,
                               ),
                               const SizedBox(width: 4),
                               Text(
                                 store.rating.toString(),
-                                style: AppTypography.h4SemiBold.copyWith(
-                                  color: AppColors.warning,
+                                style: h7SemiBold.copyWith(
+                                  color: Theme.of(context).secondaryHeaderColor.withValues(alpha: 0.8),
                                 ),
                               ),
                             ],
@@ -125,17 +125,19 @@ class StoreCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     '${store.stockLeft} Product',
-                    style: Theme.of(context).textTheme.displaySmall,
+                    style: h7SemiBold.copyWith(
+                            color: colorScheme.onSurface,
+                          ),
                   ),
                   Text(
                     '${store.reviewCount} Review',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(fontSize: Dimensions.fontSizeSmall, color: colorScheme.outline),
                   ),
                 ],
               ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sixvalley/core/constant/app_colors.dart';
-import 'package:sixvalley/core/constant/app_typography.dart';
+import 'package:sixvalley/utils/styles.dart';
 import '../../feature/home_page/model/product_model.dart';
 class ProductCard extends StatelessWidget {
   final ProductModel product;
@@ -44,7 +43,7 @@ class ProductCard extends StatelessWidget {
             // Product Name
             Text(
               product.name,
-              style: AppTypography.h4Regular.copyWith(
+              style: h7Light.copyWith(
                 color: colorScheme.onSurface,
               ),
               maxLines: 1,
@@ -62,7 +61,7 @@ class ProductCard extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               '\$${product.currentPrice.toStringAsFixed(2)}',
-              style: AppTypography.h5Bold.copyWith(
+              style: h7SemiBold.copyWith(
                 color: colorScheme.onSurface,
               ),
             ),
@@ -148,8 +147,8 @@ class _ProductImage extends StatelessWidget {
               ),
               child: Text(
                 badge!,
-                style: AppTypography.h2SemiBold.copyWith(
-                  color: AppColors.white,
+                style: h7Light.copyWith(
+                  color: colorScheme.surface,
                 ),
               ),
             ),
@@ -176,7 +175,7 @@ class _ProductImage extends StatelessWidget {
               ),
               child: Icon(
                 isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: isFavorite ? AppColors.error : colorScheme.outline,
+                color: isFavorite ? colorScheme.error : colorScheme.outline,
                 size: 18,
               ),
             ),
@@ -189,11 +188,11 @@ class _ProductImage extends StatelessWidget {
   Color _getBadgeColor(String badge) {
     switch (badge.toLowerCase()) {
       case 'new':
-        return AppColors.error;
+        return const Color(0xFFFF5555);
       case 'best selling':
-        return AppColors.secondary;
+        return const Color(0xFFF58300);
       default:
-        return AppColors.primary;
+        return const Color(0xFF1455AC);
     }
   }
 }
@@ -211,18 +210,18 @@ class _RatingRow extends StatelessWidget {
 
     return Row(
       children: [
-        const Icon(Icons.star, color: AppColors.warning, size: 14),
+        Icon(Icons.star, color: Theme.of(context).secondaryHeaderColor.withValues(alpha: 0.8), size: 14),
         const SizedBox(width: 4),
         Text(
           rating.toString(),
-          style: AppTypography.h3SemiBold.copyWith(
+          style: h7SemiBold.copyWith(
             color: colorScheme.onSurface,
           ),
         ),
         const SizedBox(width: 4),
         Text(
           '($reviewCount reviews)',
-          style: AppTypography.h3Regular.copyWith(color: colorScheme.outline),
+          style: h7Light.copyWith(color: colorScheme.outline.withAlpha(100)),
         ),
       ],
     );
@@ -248,10 +247,11 @@ class _DiscountRow extends StatelessWidget {
         // Original Price (Strikethrough)
         Text(
           '\$${originalPrice.toStringAsFixed(0)}',
-          style: AppTypography.h3Regular.copyWith(
-            color: colorScheme.outline,
+          style: h7Light.copyWith(
+            
+            color: colorScheme.outline.withAlpha(80),
             decoration: TextDecoration.lineThrough,
-            decorationColor: colorScheme.outline,
+            decorationColor: colorScheme.outline.withAlpha(80),
           ),
         ),
         const SizedBox(width: 8),
@@ -265,7 +265,7 @@ class _DiscountRow extends StatelessWidget {
           ),
           child: Text(
             '-$discountPercent%',
-            style: AppTypography.h1Bold.copyWith(color: colorScheme.error),
+            style: h7Light.copyWith(color: colorScheme.error),
           ),
         ),
       ],

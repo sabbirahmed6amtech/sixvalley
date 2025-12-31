@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sixvalley/core/constant/app_colors.dart';
-import 'package:sixvalley/core/constant/app_typography.dart';
+import 'package:sixvalley/utils/styles.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -21,10 +20,10 @@ class CustomBottomNavBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       decoration: BoxDecoration(
-        color: isDark ? AppColors.darkBackground : AppColors.cardWhite,
+        color: isDark ? Theme.of(context).scaffoldBackgroundColor : Theme.of(context).hoverColor,
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withOpacity(0.05),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, -2),
           ),
@@ -98,7 +97,7 @@ class _NavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final unselectedColor = isDark ? AppColors.deactive : AppColors.subtitle;
+    final unselectedColor = isDark ? Theme.of(context).disabledColor : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6);
 
     return GestureDetector(
       onTap: onTap,
@@ -110,7 +109,7 @@ class _NavItem extends StatelessWidget {
           vertical: 10,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary : Colors.transparent,
+          color: isSelected ? Theme.of(context).primaryColor : Colors.transparent,
           borderRadius: BorderRadius.circular(24),
         ),
         child: Row(
@@ -121,7 +120,7 @@ class _NavItem extends StatelessWidget {
               children: [
                 Icon(
                   isSelected ? selectedIcon : icon,
-                  color: isSelected ? AppColors.white : unselectedColor,
+                  color: isSelected ? Theme.of(context).colorScheme.surface : unselectedColor,
                   size: 24,
                 ),
                 if (badgeCount > 0 && !isSelected)
@@ -130,8 +129,8 @@ class _NavItem extends StatelessWidget {
                     top: -6,
                     child: Container(
                       padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                        color: AppColors.primary,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
                         shape: BoxShape.circle,
                       ),
                       constraints: const BoxConstraints(
@@ -140,8 +139,8 @@ class _NavItem extends StatelessWidget {
                       ),
                       child: Text(
                         badgeCount > 99 ? '99+' : badgeCount.toString(),
-                        style: AppTypography.h1Bold.copyWith(
-                          color: AppColors.white,
+                        style: h1Bold.copyWith(
+                          color: Theme.of(context).colorScheme.surface,
                           fontSize: 10,
                         ),
                         textAlign: TextAlign.center,
@@ -154,8 +153,8 @@ class _NavItem extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 label,
-                style: AppTypography.h4SemiBold.copyWith(
-                  color: AppColors.white,
+                style: h4SemiBold.copyWith(
+                  color: Theme.of(context).colorScheme.surface,
                 ),
               ),
             ],

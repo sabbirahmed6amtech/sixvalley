@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../config/responsive.dart';
-import '../../../config/size_config.dart';
+import 'package:sixvalley/helper/responsive_helper.dart';
 
 class BannerViewer extends StatelessWidget {
   final String imageSrc;
@@ -12,13 +11,13 @@ class BannerViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
+    final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: SizedBox(
-        width: SizeConfig.width,
-        height: ResponsiveHelper.isMobile(context) ? SizeConfig.width *0.3
-            : SizeConfig.width /5,
+        width: screenWidth,
+        height: ResponsiveHelper.isMobile(context) ? screenWidth * 0.3
+            : screenWidth / 5,
         child: Image.asset(
           imageSrc,
           fit: BoxFit.cover,

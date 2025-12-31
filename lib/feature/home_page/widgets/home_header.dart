@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sixvalley/core/constant/app_colors.dart';
-import 'package:sixvalley/core/constant/app_typography.dart';
+import 'package:sixvalley/helper/responsive_helper.dart';
+import 'package:sixvalley/utils/dimensions.dart';
+import 'package:sixvalley/utils/images.dart';
+import 'package:sixvalley/utils/styles.dart';
 
 class HomeHeader extends StatelessWidget {
   final int selectedCategoryIndex;
@@ -16,15 +18,46 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ResponsiveHelper.isDesktop(context)
+        ? _WebHeader(
+            selectedCategoryIndex: selectedCategoryIndex,
+            categories: categories,
+            onCategorySelected: onCategorySelected,
+          )
+        : _MobileHeader(
+            selectedCategoryIndex: selectedCategoryIndex,
+            categories: categories,
+            onCategorySelected: onCategorySelected,
+          );
+  }
+}
+
+class _MobileHeader extends StatelessWidget {
+  final int selectedCategoryIndex;
+  final List<String> categories;
+  final Function(int) onCategorySelected;
+
+  const _MobileHeader({
+    required this.selectedCategoryIndex,
+    required this.categories,
+    required this.onCategorySelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(color: AppColors.primary),
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
       child: SafeArea(
         bottom: true,
         child: Column(
           children: [
-            //Text part
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+              padding: const EdgeInsets.fromLTRB(
+                Dimensions.paddingSizeDefault,
+                Dimensions.paddingSizeSmall,
+                Dimensions.paddingSizeDefault,
+                Dimensions.paddingSizeDefault,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -33,25 +66,29 @@ class HomeHeader extends StatelessWidget {
                     children: [
                       Text(
                         'Hello, Welcome 👋',
-                        style: AppTypography.h4Regular.copyWith(
-                          color: AppColors.white,
+                        style: h5Regular.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary.withAlpha(230),
+                          
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: Dimensions.gapXSmall),
                       Text(
                         'Albert Stevano',
-                        style: AppTypography.h7SemiBold.copyWith(
-                          color: AppColors.white,
-                        ),
+                        style: h4SemiBold.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                       ),
                     ],
                   ),
                   Container(
-                    width: 44,
-                    height: 44,
+                    width: Dimensions.imageSizeSmall,
+                    height: Dimensions.imageSizeSmall,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(color: AppColors.white, width: 2),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        width: Dimensions.radiusSmall,
+                      ),
                     ),
                   ),
                 ],
@@ -60,17 +97,17 @@ class HomeHeader extends StatelessWidget {
 
             // Category Tabs
             SizedBox(
-              height: 30,
+              height: Dimensions.buttonHeight * 0.65,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
                   final isSelected = selectedCategoryIndex == index;
                   return GestureDetector(
                     onTap: () => onCategorySelected(index),
                     child: Container(
-                      margin: const EdgeInsets.only(right: 24),
+                      margin: const EdgeInsets.only(right: Dimensions.paddingSizeMedium),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -78,22 +115,22 @@ class HomeHeader extends StatelessWidget {
                             categories[index],
                             style:
                                 (isSelected
-                                        ? AppTypography.h5Bold
-                                        : AppTypography.h5Regular)
+                                        ? h5Bold
+                                        : h5Regular)
                                     .copyWith(
                                       color: isSelected
-                                          ? AppColors.white
-                                          : AppColors.white.withOpacity(0.7),
+                                          ? Theme.of(context).colorScheme.onPrimary
+                                          : Theme.of(context).colorScheme.onPrimary.withAlpha(179),
                                     ),
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: Dimensions.gapSmall),
                           AnimatedContainer(
                             duration: const Duration(milliseconds: 200),
-                            height: 3,
-                            width: isSelected ? 40 : 0,
+                            height: Dimensions.radiusSmall,
+                            width: isSelected ? Dimensions.imageSizeSmall : 0,
                             decoration: BoxDecoration(
-                              color: AppColors.secondary,
-                              borderRadius: BorderRadius.circular(2),
+                              color: Theme.of(context).colorScheme.secondary,
+                              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
                             ),
                           ),
                         ],
@@ -104,6 +141,142 @@ class HomeHeader extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+/// Web Header Layout
+class _WebHeader extends StatelessWidget {
+  final int selectedCategoryIndex;
+  final List<String> categories;
+  final Function(int) onCategorySelected;
+
+  const _WebHeader({
+    required this.selectedCategoryIndex,
+    required this.categories,
+    required this.onCategorySelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
+      child: SafeArea(
+        bottom: false,
+        child: Center(
+          child: SizedBox(
+            width: Dimensions.webMaxWidth,
+            child: Column(
+              children: [
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Dimensions.paddingSizeLarge,
+                    vertical: Dimensions.paddingSizeDefault,
+                  ),
+                  child: Row(
+                    children: [
+                      // Logo
+                      Image.asset(
+                        Images.logo,
+                        height: Dimensions.imageSizeSmall,
+                        
+                      ),
+                      const SizedBox(width: Dimensions.paddingSizeExtraLarge),
+
+                      // Search Bar
+                      Expanded(
+                        child: Container(
+                          height: Dimensions.textFieldHeight,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                          ),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: 'What are you looking for?',
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: Theme.of(context).hintColor,
+                              ),
+                              border: InputBorder.none,
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: Dimensions.paddingSizeDefault,
+                                vertical: Dimensions.paddingSizeDefault,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: Dimensions.paddingSizeLarge),
+
+                      // Profile
+                      Container(
+                        width: Dimensions.imageSizeSmall,
+                        height: Dimensions.imageSizeSmall,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            width: Dimensions.radiusSmall,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Horizontal Category Menu
+                Container(
+                  height: Dimensions.textFieldHeight,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Dimensions.paddingSizeLarge,
+                  ),
+                  child: Row(
+                    children: List.generate(
+                      categories.length,
+                      (index) {
+                        final isSelected = selectedCategoryIndex == index;
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            right: Dimensions.paddingSizeExtraLarge,
+                          ),
+                          child: InkWell(
+                            onTap: () => onCategorySelected(index),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  categories[index],
+                                  style: (isSelected ? h5Bold : h5Regular).copyWith(
+                                    color: isSelected
+                                        ? Theme.of(context).colorScheme.onPrimary
+                                        : Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.7),
+                                  ),
+                                ),
+                                const SizedBox(height: Dimensions.gapSmall),
+                                AnimatedContainer(
+                                  duration: const Duration(milliseconds: 200),
+                                  height: Dimensions.radiusSmall,
+                                  width: isSelected ? Dimensions.imageSizeSmall : 0,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).colorScheme.secondary,
+                                    borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(height: Dimensions.paddingSizeSmall),
+              ],
+            ),
+          ),
         ),
       ),
     );

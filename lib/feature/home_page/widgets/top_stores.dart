@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sixvalley/core/constant/app_typography.dart';
+import 'package:sixvalley/utils/styles.dart';
 import '../../../common/widgets/store_card.dart';
 import '../model/product_model.dart';
 import '../model/store_model.dart';
@@ -70,7 +70,7 @@ class _FeaturedHeader extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppTypography.h7SemiBold.copyWith(
+          style: h7SemiBold.copyWith(
             color: colorScheme.onSurface,
           ),
         ),
@@ -78,7 +78,7 @@ class _FeaturedHeader extends StatelessWidget {
           onTap: onViewAllTap,
           child: Text(
             'View all',
-            style: AppTypography.h4Regular.copyWith(color: colorScheme.onSurface),
+            style: h4Regular.copyWith(color: colorScheme.onSurface),
           ),
         ),
       ],

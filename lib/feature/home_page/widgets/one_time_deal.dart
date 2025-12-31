@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sixvalley/core/constant/app_typography.dart';
+import 'package:sixvalley/utils/styles.dart';
 import 'package:sixvalley/common/widgets/product_card.dart';
 
 import '../model/product_model.dart';
@@ -31,7 +31,7 @@ class OneTimeDeal extends StatelessWidget {
         : ProductModel.dealProducts;
 
     return Container(
-      decoration: BoxDecoration(color: colorScheme.primaryContainer),
+      decoration: BoxDecoration(color: colorScheme.primaryContainer.withAlpha(50)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
@@ -105,7 +105,7 @@ class _OneTimeDealHeader extends StatelessWidget {
           children: [
             Text(
               title,
-              style: AppTypography.h7SemiBold.copyWith(
+              style: h5Bold.copyWith(
                 color: colorScheme.primary,
               ),
             ),
@@ -130,7 +130,7 @@ class _OneTimeDealHeader extends StatelessWidget {
           ),
           child: Text(
             _formatDuration(remainingTime),
-            style: AppTypography.h2SemiBold.copyWith(
+            style: h7SemiBold.copyWith(
               color: colorScheme.primary,
             ),
           ),
