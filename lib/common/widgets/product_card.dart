@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sixvalley/utils/dimensions.dart';
 import 'package:sixvalley/utils/styles.dart';
 import '../../feature/home_page/model/product_model.dart';
+import '../../utils/gaps.dart';
 class ProductCard extends StatelessWidget {
   final ProductModel product;
   final VoidCallback? onTap;
@@ -52,13 +54,13 @@ class ProductCard extends StatelessWidget {
 
             // Rating (optional)
             if (showRating && product.hasRating) ...[
-              const SizedBox(height: 4),
+              Gaps.vGapSmall,
               _RatingRow(
                 rating: product.rating!,
                 reviewCount: product.reviewCount!,
               ),
             ],
-            const SizedBox(height: 4),
+            Gaps.vGapSmall,
             Text(
               '\$${product.currentPrice.toStringAsFixed(2)}',
               style: h7SemiBold.copyWith(
@@ -68,7 +70,7 @@ class ProductCard extends StatelessWidget {
 
             // Discount Row (optional)
             if (product.hasDiscount) ...[
-              const SizedBox(height: 4),
+              Gaps.vGapSmall,
               _DiscountRow(
                 originalPrice: product.originalPrice!,
                 discountPercent: product.discountPercent!,
@@ -176,7 +178,7 @@ class _ProductImage extends StatelessWidget {
               child: Icon(
                 isFavorite ? Icons.favorite : Icons.favorite_border,
                 color: isFavorite ? colorScheme.error : colorScheme.outline,
-                size: 18,
+                size: Dimensions.iconSizeSmall,
               ),
             ),
           ),
@@ -210,15 +212,15 @@ class _RatingRow extends StatelessWidget {
 
     return Row(
       children: [
-        Icon(Icons.star, color: Theme.of(context).secondaryHeaderColor.withValues(alpha: 0.8), size: 14),
-        const SizedBox(width: 4),
+        Icon(Icons.star, color: Theme.of(context).secondaryHeaderColor.withValues(alpha: 0.8), size: Dimensions.iconSizeSmall),
+        Gaps.vGapSmall,
         Text(
           rating.toString(),
           style: h7SemiBold.copyWith(
             color: colorScheme.onSurface,
           ),
         ),
-        const SizedBox(width: 4),
+        Gaps.vGapSmall,
         Text(
           '($reviewCount reviews)',
           style: h7Light.copyWith(color: colorScheme.outline.withAlpha(100)),
@@ -254,14 +256,14 @@ class _DiscountRow extends StatelessWidget {
             decorationColor: colorScheme.outline.withAlpha(80),
           ),
         ),
-        const SizedBox(width: 8),
+        Gaps.hGapSmall,
 
         // Discount Badge
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
           decoration: BoxDecoration(
             color: colorScheme.error.withValues(alpha: 0.2),
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
           ),
           child: Text(
             '-$discountPercent%',

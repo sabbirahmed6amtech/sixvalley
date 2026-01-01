@@ -5,13 +5,13 @@ import '../../../helper/responsive_helper.dart';
 import '../../../utils/images.dart';
 import '../model/product_model.dart';
 
-class TodaysDeal extends StatelessWidget {
+class TodaysDealWeb extends StatelessWidget {
   final ProductModel? product;
   final VoidCallback? onProductTap;
   final VoidCallback? onFavoriteTap;
   final VoidCallback? onAddToCartTap;
 
-  const TodaysDeal({
+  const TodaysDealWeb({
     super.key,
     this.product,
     this.onProductTap,
@@ -27,40 +27,53 @@ class TodaysDeal extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: colorScheme.surfaceBright,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: colorScheme.shadow.withValues(alpha: 0.08),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            height: 500,
+            width: 600,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Image.asset(Images.largeImage, fit: BoxFit.cover,),
             ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Left Side - Banner
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ResponsiveHelper.isMobile(context) ? _TodaysDealBanner() : SizedBox.shrink(),
+          ),
+          Container(
+            width: 500,
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceBright,
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  color: colorScheme.shadow.withValues(alpha: 0.08),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
-      
-            // Right Side - Product Details
-            Expanded(
-              child: _TodaysDealProductCard(
-                product: displayProduct,
-                onTap: onProductTap,
-                onFavoriteTap: onFavoriteTap,
-                onAddToCartTap: onAddToCartTap,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Left Side - Banner
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ResponsiveHelper.isMobile(context) ? _TodaysDealBanner() : SizedBox.shrink(),
+                ),
+
+                // Right Side - Product Details
+                Expanded(
+                  child: _TodaysDealProductCard(
+                    product: displayProduct,
+                    onTap: onProductTap,
+                    onFavoriteTap: onFavoriteTap,
+                    onAddToCartTap: onAddToCartTap,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -265,13 +278,13 @@ class _ProductImageWithFavorite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final imageSize = MediaQuery.of(context).size.width * 0.62;
+    final imageSize = 350.0;
 
     return Stack(
       children: [
         // Product Image
         Container(
-          width: imageSize,
+          width: imageSize+100,
           height: imageSize,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),

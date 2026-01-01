@@ -132,12 +132,12 @@ class StoreCard extends StatelessWidget {
                   Text(
                     '${store.stockLeft} Product',
                     style: h7SemiBold.copyWith(
-                            color: colorScheme.onSurface,
+                            color: colorScheme.tertiary.withAlpha(150),
                           ),
                   ),
                   Text(
                     '${store.reviewCount} Review',
-                    style: TextStyle(fontSize: Dimensions.fontSizeSmall, color: colorScheme.outline),
+                    style: TextStyle(fontSize: Dimensions.fontSizeSmall, color: colorScheme.tertiary.withAlpha(150)),
                   ),
                 ],
               ),

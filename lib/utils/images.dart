@@ -2,9 +2,10 @@
 
 class Images {
   static String get logo => 'logo'.png;
+  static String get profile => 'profile'.png;
   static String get banner1 => 'banner1'.png;
   static String get banner2 => 'banner2'.png;
-  static String get bigSale => 'banner2'.png;
+  static String get bigSale => 'bigsale'.png;
   static String get featureProduct1 => 'fea_prod1'.png;
   static String get featureProduct2 => 'fea_prod2'.png;
   static String get featureProduct3 => 'fea_prod3'.png;

@@ -10,7 +10,9 @@ import 'package:sixvalley/feature/home_page/widgets/home_search_bar.dart';
 import 'package:sixvalley/feature/home_page/widgets/new_user_exclusive.dart';
 import 'package:sixvalley/feature/home_page/widgets/one_time_deal.dart';
 import 'package:sixvalley/feature/home_page/widgets/todays_deal.dart';
+import 'package:sixvalley/feature/home_page/widgets/todays_deal_web.dart';
 import 'package:sixvalley/feature/home_page/widgets/top_stores.dart';
+import 'package:sixvalley/helper/responsive_helper.dart';
 import '../../utils/images.dart';
 
 class HomePage extends StatefulWidget {
@@ -42,79 +44,81 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).cardColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: HomeHeader(
-              selectedCategoryIndex: _selectedCategoryIndex,
-              categories: _categories,
-              onCategorySelected: (index) {
+    return SafeArea(
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: HomeHeader(
+                selectedCategoryIndex: _selectedCategoryIndex,
+                categories: _categories,
+                onCategorySelected: (index) {
+                  setState(() {
+                    _selectedCategoryIndex = index;
+                  });
+                },
+              ),
+            ),
+            const FloatingSearchBar(),
+            SliverToBoxAdapter(child: const OneTimeDeal()),
+
+            SliverToBoxAdapter(child: const SizedBox(height: 16)),
+            SliverToBoxAdapter(child: CustomSlider()),
+            SliverToBoxAdapter(child: const SizedBox(height: 16)),
+            SliverToBoxAdapter(child: const FeaturedProducts()),
+            SliverToBoxAdapter(child:  ResponsiveHelper.isDesktop(context)? TodaysDealWeb(): TodaysDeal()),
+
+            if (ResponsiveHelper.isMobile(context)) SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Image.asset(Images.banner1),
+              ),
+            ),
+            SliverToBoxAdapter(child: NewUserExclusive()),
+            SliverToBoxAdapter(child: TopStores()),
+            SliverToBoxAdapter(child: const SizedBox(height: 16)),
+
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Image.asset(Images.banner2),
+              ),
+            ),
+
+            CategoryTabs(
+              tabs: _tabs,
+              selectedIndex: _selectedTabIndex,
+              onTabSelected: (index) {
                 setState(() {
-                  _selectedCategoryIndex = index;
+                  _selectedTabIndex = index;
                 });
               },
             ),
-          ),
-          const FloatingSearchBar(),
-          SliverToBoxAdapter(child: const OneTimeDeal()),
-          
-          SliverToBoxAdapter(child: const SizedBox(height: 16)),
-          SliverToBoxAdapter(child: CustomSlider()),
-          SliverToBoxAdapter(child: const SizedBox(height: 16)),
-          SliverToBoxAdapter(child: const FeaturedProducts()),
-          SliverToBoxAdapter(child: const TodaysDeal()),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Image.asset(Images.banner1),
+            SliverPadding(
+              padding: const EdgeInsets.all(16),
+              sliver: SliverMasonryGrid.count(
+                crossAxisCount: ResponsiveHelper.isMobile(context)? 2:3,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                childCount: ProductModel.getProductsByCategory(_tabs[_selectedTabIndex]).length,
+                itemBuilder: (context, index) {
+                  final products = ProductModel.getProductsByCategory(_tabs[_selectedTabIndex]);
+                  final product = products[index];
+                  return ProductCard(
+                    product: product,
+                    width: double.infinity,
+                    imageHeight: 160,
+                    showRating: product.hasRating,
+                    onTap: () {},
+                    onFavoriteTap: () {},
+                  );
+                },
+              ),
             ),
-          ),
-          SliverToBoxAdapter(child: NewUserExclusive()),
-          SliverToBoxAdapter(child: TopStores()),
-          SliverToBoxAdapter(child: const SizedBox(height: 16)),
-    
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Image.asset(Images.banner2),
-            ),
-          ),
-    
-          CategoryTabs(
-            tabs: _tabs,
-            selectedIndex: _selectedTabIndex,
-            onTabSelected: (index) {
-              setState(() {
-                _selectedTabIndex = index;
-              });
-            },
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.all(16),
-            sliver: SliverMasonryGrid.count(
-              crossAxisCount: 2,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childCount: ProductModel.getProductsByCategory(_tabs[_selectedTabIndex]).length,
-              itemBuilder: (context, index) {
-                final products = ProductModel.getProductsByCategory(_tabs[_selectedTabIndex]);
-                final product = products[index];
-                return ProductCard(
-                  product: product,
-                  width: double.infinity,
-                  imageHeight: 160,
-                  showRating: product.hasRating,
-                  onTap: () {},
-                  onFavoriteTap: () {},
-                );
-              },
-            ),
-          ),
-    
-          const SliverToBoxAdapter(child: SizedBox(height: 16)),
-        ],
+
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+          ],
+        ),
       ),
     );
   }

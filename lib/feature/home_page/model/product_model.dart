@@ -240,6 +240,54 @@ class ProductModel {
       isFavorite: false,
       categories: ['New Arrivals', 'Discounted Products'],
     ),
+    const ProductModel(
+      id: 'f3',
+      name: 'Luxury Handbag',
+      imageUrl: 'assets/images/fea_prod3.png',
+      currentPrice: 245.00,
+      originalPrice: 320.00,
+      discountPercent: 23,
+      rating: 4.9,
+      reviewCount: 203,
+      isFavorite: false,
+      categories: ['New Arrivals', 'Discounted Products'],
+    ),
+    const ProductModel(
+      id: 'f3',
+      name: 'Luxury Handbag',
+      imageUrl: 'assets/images/fea_prod3.png',
+      currentPrice: 245.00,
+      originalPrice: 320.00,
+      discountPercent: 23,
+      rating: 4.9,
+      reviewCount: 203,
+      isFavorite: false,
+      categories: ['New Arrivals', 'Discounted Products'],
+    ),
+    const ProductModel(
+      id: 'f3',
+      name: 'Luxury Handbag',
+      imageUrl: 'assets/images/fea_prod3.png',
+      currentPrice: 245.00,
+      originalPrice: 320.00,
+      discountPercent: 23,
+      rating: 4.9,
+      reviewCount: 203,
+      isFavorite: false,
+      categories: ['New Arrivals', 'Discounted Products'],
+    ),const ProductModel(
+      id: 'f3',
+      name: 'Luxury Handbag',
+      imageUrl: 'assets/images/fea_prod3.png',
+      currentPrice: 245.00,
+      originalPrice: 320.00,
+      discountPercent: 23,
+      rating: 4.9,
+      reviewCount: 203,
+      isFavorite: false,
+      categories: ['New Arrivals', 'Discounted Products'],
+    ),
+
   ];
 
   static List<ProductModel> newUserExclusive = [
@@ -286,5 +334,25 @@ class ProductModel {
       isFavorite: false,
       categories: ['Discounted Products', 'Top Products'],
     ),
+
+    const ProductModel(
+      id: 'n4',
+      name: 'Yoga Mat Set',
+      imageUrl: 'assets/images/prod2.png',
+      currentPrice: 42.50,
+      originalPrice: 60.00,
+      discountPercent: 29,
+      isFavorite: false,
+      categories: ['Discounted Products', 'Top Products'],
+    ),
+
+
+
+
+
+
+
+
+
   ];
 }

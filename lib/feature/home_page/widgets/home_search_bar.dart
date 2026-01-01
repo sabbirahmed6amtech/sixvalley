@@ -33,7 +33,7 @@ class HomeSearchBar extends StatelessWidget {
           color: Theme.of(context).brightness == Brightness.dark
               ? colorScheme.surfaceContainerHighest
               : colorScheme.surface,
-          borderRadius: BorderRadius.circular(Dimensions.radiusMedium),
+          borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
           border: Border.all(
             color: colorScheme.outline.withValues(alpha: 0.3),
             width: 1,),
@@ -71,21 +71,15 @@ class HomeSearchBar extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.all(Dimensions.gapXSmall),
+              width: 55,
+              height: 45,
               decoration: BoxDecoration(
                 color: colorScheme.primary,
                 borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
               ),
-              child: IconButton(
-                onPressed: onSearchTap,
-                icon: const Icon(Icons.search),
-                color: colorScheme.surface,
-                iconSize: Dimensions.iconSizeDefault,
-                padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-                constraints: const BoxConstraints(
-                  minWidth: Dimensions.buttonHeight * 0.83,
-                  minHeight: Dimensions.buttonHeight * 0.83,
-                ),
-              ),
+              child: IconButton(onPressed: (){}, 
+                  icon: Icon(Icons.search),
+              color: colorScheme.surface),
             ),
           ],
         ),
@@ -96,21 +90,17 @@ class HomeSearchBar extends StatelessWidget {
 
 class SearchBarDelegate extends SliverPersistentHeaderDelegate {
   @override
-  double get minExtent => 0; // Can shrink to 0 when tabs push it out
+  double get minExtent => 70;
   @override
   double get maxExtent => 70;
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final double opacity = ((maxExtent - shrinkOffset) / maxExtent).clamp(0.0, 1.0);
-    
+
     return Container(
       height: maxExtent,
       color: Theme.of(context).cardColor,
-      child: Opacity(
-        opacity: opacity,
-        child: const HomeSearchBar(),
-      ),
+      child: const HomeSearchBar(),
     );
   }
 
@@ -118,7 +108,6 @@ class SearchBarDelegate extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(_) => false;
 }
 
-// Floating search bar widget for easy usage
 class FloatingSearchBar extends StatelessWidget {
   const FloatingSearchBar({super.key});
 

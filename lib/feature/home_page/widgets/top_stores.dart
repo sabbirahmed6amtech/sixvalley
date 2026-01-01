@@ -78,7 +78,7 @@ class _FeaturedHeader extends StatelessWidget {
           onTap: onViewAllTap,
           child: Text(
             'View all',
-            style: h4Regular.copyWith(color: colorScheme.onSurface),
+            style: h7Light,
           ),
         ),
       ],

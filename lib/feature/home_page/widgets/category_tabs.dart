@@ -39,9 +39,9 @@ class _TabBarDelegate extends SliverPersistentHeaderDelegate {
   });
 
   @override
-  double get minExtent => 56;
+  double get minExtent => 50;
   @override
-  double get maxExtent => 56;
+  double get maxExtent => 50;
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {

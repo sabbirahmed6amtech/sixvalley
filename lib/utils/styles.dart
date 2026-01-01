@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sixvalley/utils/dimensions.dart';
 
-// ═════════════════════════════════════════════════════════════════════════════
-// TEXT STYLES
-// ═════════════════════════════════════════════════════════════════════════════
-
 /// Light Text Styles
 const TextStyle interLight = TextStyle(
   fontFamily: 'Inter',
@@ -32,9 +28,6 @@ const TextStyle interBold = TextStyle(
   fontWeight: FontWeight.w700,
 );
 
-// ═════════════════════════════════════════════════════════════════════════════
-// HEADING STYLES
-// ═════════════════════════════════════════════════════════════════════════════
 
 const TextStyle h1Bold = TextStyle(
   fontFamily: 'Inter',
@@ -98,12 +91,9 @@ const TextStyle h7SemiBold = TextStyle(
 const TextStyle h7Light = TextStyle(
   fontFamily: 'Inter',
   fontSize: 12,
-  fontWeight: FontWeight.w300,
+  fontWeight: FontWeight.w400,
 );
 
-// ═════════════════════════════════════════════════════════════════════════════
-// BOX SHADOWS
-// ═════════════════════════════════════════════════════════════════════════════
 
 /// Light shadow for cards
 const List<BoxShadow> cardShadow = [
@@ -145,9 +135,6 @@ const List<BoxShadow> bottomSheetShadow = [
   ),
 ];
 
-// ═════════════════════════════════════════════════════════════════════════════
-// DECORATIONS
-// ═════════════════════════════════════════════════════════════════════════════
 
 /// Card decoration with shadow
 final BoxDecoration cardDecoration = BoxDecoration(

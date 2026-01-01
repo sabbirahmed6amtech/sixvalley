@@ -80,17 +80,9 @@ class _MobileHeader extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    width: Dimensions.imageSizeSmall,
-                    height: Dimensions.imageSizeSmall,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        width: Dimensions.radiusSmall,
-                      ),
-                    ),
-                  ),
+                  ClipOval(
+                    child: Image.asset(Images.profile, height: Dimensions.iconSizeMedium,),
+                  )
                 ],
               ),
             ),

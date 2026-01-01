@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:sixvalley/helper/responsive_helper.dart';
 import 'package:sixvalley/utils/dimensions.dart';
+import 'package:sixvalley/utils/images.dart';
 
 class CustomSlider extends StatefulWidget {
   const CustomSlider({super.key});
@@ -13,15 +15,15 @@ class _CustomSliderState extends State<CustomSlider> {
   int _currentCarouselIndex = 0;
 
   final List<String> carouselImages = [
-    'assets/images/bigsale.png',
-    'assets/images/banner1.png',
-    'assets/images/banner2.png',
+    Images.bigSale,
+    Images.banner1,
+    Images.banner2,
   ];
 
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final bannerHeight = screenWidth * 0.3;
+    final bannerHeight = ResponsiveHelper.isDesktop(context)? screenWidth * 0.15: screenWidth*0.3;
 
     return Column(
       children: [
@@ -82,7 +84,6 @@ class _CustomSliderState extends State<CustomSlider> {
           }).toList(),
         ),
         const SizedBox(height: Dimensions.gapMedium),
-        
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: carouselImages.asMap().entries.map((entry) {
