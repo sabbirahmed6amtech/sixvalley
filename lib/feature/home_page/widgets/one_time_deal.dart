@@ -30,9 +30,8 @@ class OneTimeDeal extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final displayProducts = products.isNotEmpty
         ? products
-        : ProductModel.dealProducts;
+        : ProductController().getDealProducts();
 
-    // Initialize ProductController with favorite states
     final productController = Get.put(ProductController());
     productController.initializeFavorites(displayProducts);
 

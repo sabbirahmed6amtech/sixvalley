@@ -1,12 +1,17 @@
+import '../common/model/language_model.dart';
+
 class AppConstants {
   AppConstants._();
 
   static const String appName = 'Six Valley';
   static const String appVersion = '1.0.0';
-  
+
   // API Base URLs
-  static const String baseUrl = 'YOUR_BASE_URL_HERE';
-  static const String apiVersion = '/api/v1';
+  static const String baseUrl = 'https://mocki.io';
+  static const String apiVersion = '/v1';
+
+  // Endpoints
+  static const String storeApi = 'https://mocki.io/v1/7b04cbc7-68ab-456e-9146-3b4bb1892b90';
 
   // Shared Preferences Keys
   static const String theme = 'sixvalley_theme';
@@ -29,6 +34,12 @@ class AppConstants {
   static const int searchHistoryLimit = 10;
   static const int itemsPerPage = 20;
 
+  static List<LanguageModel> languages = [
+    LanguageModel(languageName: 'English', countryCode: 'US', languageCode: 'en'),
+    LanguageModel(languageName: 'عربى', countryCode: 'SA', languageCode: 'ar'),
+    LanguageModel(languageName: 'বাংলা', countryCode: 'BD', languageCode: 'bn'),
+    LanguageModel(languageName: 'Hindi', countryCode: 'IN', languageCode: 'hi'),
+  ];
   // Categories
   static const List<String> popularCategories = [
     'Electronics',

@@ -13,7 +13,7 @@ import 'package:sixvalley/feature/home_page/widgets/todays_deal.dart';
 import 'package:sixvalley/feature/home_page/widgets/todays_deal_web.dart';
 import 'package:sixvalley/feature/home_page/widgets/top_stores.dart';
 import 'package:sixvalley/helper/responsive_helper.dart';
-import '../../utils/images.dart';
+import '../../../utils/images.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

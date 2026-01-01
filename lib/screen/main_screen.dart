@@ -3,7 +3,7 @@ import 'package:sixvalley/feature/home_page/widgets/custom_bottom_nav_bar.dart';
 import 'package:sixvalley/utils/dimensions.dart';
 
 import '../helper/responsive_helper.dart';
-import '../feature/home_page/home_page.dart';
+import '../feature/home_page/view/home_page.dart';
 
 
 class MainScreen extends StatefulWidget {

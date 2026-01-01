@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sixvalley/feature/home_page/controller/product_controller.dart';
 import 'package:sixvalley/utils/styles.dart';
 import 'package:sixvalley/common/widgets/product_card.dart';
 
@@ -25,7 +26,7 @@ class FeaturedProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     final displayProducts = products.isNotEmpty
         ? products
-        : ProductModel.featuredProducts;
+        : ProductController().getFeaturedProducts();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

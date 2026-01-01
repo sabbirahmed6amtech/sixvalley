@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sixvalley/utils/dimensions.dart';
 import 'package:sixvalley/utils/styles.dart';
-import '../../feature/home_page/model/store_model.dart';
+import '../../feature/home_page/model/stores_model.dart';
 
 class StoreCard extends StatelessWidget {
-  final StoreModel store;
+  final StoresModel store;
   final VoidCallback? onTap;
   final double width;
   final double bannerHeight;
@@ -50,7 +50,7 @@ class StoreCard extends StatelessWidget {
                 topRight: Radius.circular(12),
               ),
               child: Image.asset(
-                store.imageUrl,
+                store.imageUrl ?? '',
                 width: width,
                 fit: BoxFit.cover,
               ),
@@ -91,7 +91,7 @@ class StoreCard extends StatelessWidget {
                       children: [
                         // Store Name
                         Text(
-                          store.name,
+                          store.name ?? '',
                           style: h7SemiBold.copyWith(
                             color: colorScheme.onSurface,
                           ),
@@ -104,14 +104,18 @@ class StoreCard extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.star_rounded,
-                                color: Theme.of(context).secondaryHeaderColor.withValues(alpha: 0.8),
+                                color: Theme.of(
+                                  context,
+                                ).secondaryHeaderColor.withValues(alpha: 0.8),
                                 size: 16,
                               ),
                               const SizedBox(width: 4),
                               Text(
                                 store.rating.toString(),
                                 style: h7SemiBold.copyWith(
-                                  color: Theme.of(context).secondaryHeaderColor.withValues(alpha: 0.8),
+                                  color: Theme.of(
+                                    context,
+                                  ).secondaryHeaderColor.withValues(alpha: 0.8),
                                 ),
                               ),
                             ],
@@ -125,19 +129,22 @@ class StoreCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     '${store.stockLeft} Product',
                     style: h7SemiBold.copyWith(
-                            color: colorScheme.tertiary.withAlpha(150),
-                          ),
+                      color: colorScheme.tertiary.withAlpha(150),
+                    ),
                   ),
                   Text(
                     '${store.reviewCount} Review',
-                    style: TextStyle(fontSize: Dimensions.fontSizeSmall, color: colorScheme.tertiary.withAlpha(150)),
+                    style: TextStyle(
+                      fontSize: Dimensions.fontSizeSmall,
+                      color: colorScheme.tertiary.withAlpha(150),
+                    ),
                   ),
                 ],
               ),

@@ -18,4 +18,15 @@ class ProductController extends GetxController {
       _favoriteStatus[product.id] = product.isFavorite;
     }
   }
+  List<ProductModel> getDealProducts(){
+    return ProductModel.dealProducts;
+  }
+  List<ProductModel> getFeaturedProducts(){
+    return ProductModel.featuredProducts;
+  }
+  List<ProductModel> newUserExclusive(){
+    return ProductModel.newUserExclusive;
+  }
+
+
 }
