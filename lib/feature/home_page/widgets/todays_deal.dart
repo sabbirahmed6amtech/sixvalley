@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sixvalley/utils/dimensions.dart';
 import 'package:sixvalley/utils/styles.dart';
+import '../../../helper/price_converter.dart';
 import '../../../helper/responsive_helper.dart';
 import '../../../utils/images.dart';
 import '../model/product_model.dart';
@@ -185,7 +186,7 @@ class _TodaysDealProductCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '\$10,0,965.00',
+                      '\$${PriceConverter.convertWithDiscount(product.currentPrice, product.discountPercent)}',
                       style: h5Bold.copyWith(
                         color: colorScheme.onSurface,
                       ),
@@ -195,7 +196,7 @@ class _TodaysDealProductCard extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            '\$${product.originalPrice!.toStringAsFixed(0)}',
+                            '\$${product.currentPrice.toStringAsFixed(0)}',
                             style: h7Light.copyWith(
                               color: colorScheme.outline.withAlpha(150),
                               decoration: TextDecoration.lineThrough,

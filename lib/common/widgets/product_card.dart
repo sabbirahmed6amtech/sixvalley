@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sixvalley/utils/dimensions.dart';
 import 'package:sixvalley/utils/styles.dart';
 import '../../feature/home_page/model/product_model.dart';
 import '../../utils/gaps.dart';
+import '../../feature/home_page/controller/product_controller.dart';
+
 class ProductCard extends StatelessWidget {
   final ProductModel product;
   final VoidCallback? onTap;
@@ -34,6 +37,7 @@ class ProductCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _ProductImage(
+              productId: product.id,
               imageUrl: product.imageUrl,
               isFavorite: product.isFavorite,
               badge: product.badge,
@@ -45,9 +49,7 @@ class ProductCard extends StatelessWidget {
             // Product Name
             Text(
               product.name,
-              style: h7Light.copyWith(
-                color: colorScheme.onSurface,
-              ),
+              style: h7Light.copyWith(color: colorScheme.onSurface),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -63,9 +65,7 @@ class ProductCard extends StatelessWidget {
             Gaps.vGapSmall,
             Text(
               '\$${product.currentPrice.toStringAsFixed(2)}',
-              style: h7SemiBold.copyWith(
-                color: colorScheme.onSurface,
-              ),
+              style: h7SemiBold.copyWith(color: colorScheme.onSurface),
             ),
 
             // Discount Row (optional)
@@ -73,7 +73,7 @@ class ProductCard extends StatelessWidget {
               Gaps.vGapSmall,
               _DiscountRow(
                 originalPrice: product.originalPrice!,
-                discountPercent: product.discountPercent!,
+                discountPercent: product.discountPercent,
               ),
             ],
           ],
@@ -84,6 +84,7 @@ class ProductCard extends StatelessWidget {
 }
 
 class _ProductImage extends StatelessWidget {
+  final String productId;
   final String imageUrl;
   final bool isFavorite;
   final String? badge;
@@ -92,6 +93,7 @@ class _ProductImage extends StatelessWidget {
   final double height;
 
   const _ProductImage({
+    required this.productId,
     required this.imageUrl,
     required this.isFavorite,
     this.badge,
@@ -149,9 +151,7 @@ class _ProductImage extends StatelessWidget {
               ),
               child: Text(
                 badge!,
-                style: h7Light.copyWith(
-                  color: colorScheme.surface,
-                ),
+                style: h7Light.copyWith(color: colorScheme.surface),
               ),
             ),
           ),
@@ -159,28 +159,37 @@ class _ProductImage extends StatelessWidget {
         Positioned(
           right: 8,
           bottom: 8,
-          child: GestureDetector(
-            onTap: onFavoriteTap,
-            child: Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                color: colorScheme.surface,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: colorScheme.shadow.withValues(alpha: 0.1),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
+          child: GetBuilder<ProductController>(
+            init: ProductController(),
+            builder: (controller) {
+              final isFav = controller.isFavorite(productId);
+              return GestureDetector(
+                onTap: () {
+                  controller.toggleFavorite(productId);
+                  onFavoriteTap?.call();
+                },
+                child: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: colorScheme.surface,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: colorScheme.shadow.withValues(alpha: 0.1),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: Icon(
-                isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: isFavorite ? colorScheme.error : colorScheme.outline,
-                size: Dimensions.iconSizeSmall,
-              ),
-            ),
+                  child: Icon(
+                    isFav ? Icons.favorite : Icons.favorite_border,
+                    color: isFav ? colorScheme.error : colorScheme.outline,
+                    size: Dimensions.iconSizeSmall,
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ],
@@ -212,13 +221,15 @@ class _RatingRow extends StatelessWidget {
 
     return Row(
       children: [
-        Icon(Icons.star, color: Theme.of(context).secondaryHeaderColor.withValues(alpha: 0.8), size: Dimensions.iconSizeSmall),
+        Icon(
+          Icons.star,
+          color: Theme.of(context).secondaryHeaderColor.withValues(alpha: 0.8),
+          size: Dimensions.iconSizeSmall,
+        ),
         Gaps.vGapSmall,
         Text(
           rating.toString(),
-          style: h7SemiBold.copyWith(
-            color: colorScheme.onSurface,
-          ),
+          style: h7SemiBold.copyWith(color: colorScheme.onSurface),
         ),
         Gaps.vGapSmall,
         Text(
@@ -233,7 +244,7 @@ class _RatingRow extends StatelessWidget {
 /// Price and Discount Row
 class _DiscountRow extends StatelessWidget {
   final double originalPrice;
-  final int discountPercent;
+  final double discountPercent;
 
   const _DiscountRow({
     required this.originalPrice,
@@ -250,7 +261,6 @@ class _DiscountRow extends StatelessWidget {
         Text(
           '\$${originalPrice.toStringAsFixed(0)}',
           style: h7Light.copyWith(
-            
             color: colorScheme.outline.withAlpha(80),
             decoration: TextDecoration.lineThrough,
             decorationColor: colorScheme.outline.withAlpha(80),

@@ -4,7 +4,7 @@ class ProductModel {
   final String imageUrl;
   final double currentPrice;
   final double? originalPrice;
-  final int? discountPercent;
+  final double discountPercent;
   final double? rating;
   final int? reviewCount;
   final String? badge;
@@ -18,7 +18,7 @@ class ProductModel {
     required this.imageUrl,
     required this.currentPrice,
     this.originalPrice,
-    this.discountPercent,
+    required this.discountPercent,
     this.rating,
     this.reviewCount,
     this.badge,
@@ -56,7 +56,7 @@ class ProductModel {
     imageUrl: 'assets/images/todays_deal.png',
     currentPrice: 100965.00,
     originalPrice: 1100,
-    discountPercent: 10,
+    discountPercent: 10.0,
     rating: 4.5,
     reviewCount: 12,
     stockLeft: 22,
@@ -221,6 +221,7 @@ class ProductModel {
       id: 'f2',
       name: 'Designer Sunglasses',
       imageUrl: 'assets/images/fea_prod2.png',
+      discountPercent: 40.0,
       currentPrice: 95.00,
       rating: 4.6,
       reviewCount: 98,
@@ -308,6 +309,7 @@ class ProductModel {
       id: 'n2',
       name: 'Wireless Earbuds Pro',
       imageUrl: 'assets/images/new2.png',
+      discountPercent: 20.0,
       currentPrice: 89.00,
       isFavorite: false,
       categories: ['New Arrivals'],

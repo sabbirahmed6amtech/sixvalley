@@ -61,13 +61,11 @@ class _HomePageState extends State<HomePage> {
             ),
             const FloatingSearchBar(),
             SliverToBoxAdapter(child: const OneTimeDeal()),
-
             SliverToBoxAdapter(child: const SizedBox(height: 16)),
             SliverToBoxAdapter(child: CustomSlider()),
             SliverToBoxAdapter(child: const SizedBox(height: 16)),
             SliverToBoxAdapter(child: const FeaturedProducts()),
             SliverToBoxAdapter(child:  ResponsiveHelper.isDesktop(context)? TodaysDealWeb(): TodaysDeal()),
-
             if (ResponsiveHelper.isMobile(context)) SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(10),
@@ -77,14 +75,12 @@ class _HomePageState extends State<HomePage> {
             SliverToBoxAdapter(child: NewUserExclusive()),
             SliverToBoxAdapter(child: TopStores()),
             SliverToBoxAdapter(child: const SizedBox(height: 16)),
-
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Image.asset(Images.banner2),
               ),
             ),
-
             CategoryTabs(
               tabs: _tabs,
               selectedIndex: _selectedTabIndex,
@@ -115,7 +111,6 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
-
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
           ],
         ),

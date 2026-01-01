@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sixvalley/theme/light_theme.dart';
 import 'package:sixvalley/theme/dark_theam.dart';
 import 'package:sixvalley/screen/main_screen.dart';
@@ -10,10 +11,9 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: AppConstants.appName,
       theme: light,
