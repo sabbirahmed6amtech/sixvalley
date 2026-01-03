@@ -38,13 +38,13 @@ class _TopStoresState extends State<TopStores> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Header Section
+
           _FeaturedHeader(
             title: widget.title,
             onViewAllTap: widget.onViewAllTap,
           ),
           const SizedBox(height: 12),
-          // Products List
+
           FutureBuilder<List<StoresModel>>(
             future: _storesController.getStoreList(),
             builder: (context, snapshot) {

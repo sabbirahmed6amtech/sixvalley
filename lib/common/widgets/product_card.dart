@@ -46,7 +46,7 @@ class ProductCard extends StatelessWidget {
               height: imageHeight,
             ),
             const SizedBox(height: 8),
-            // Product Name
+
             Text(
               product.name,
               style: h7Light.copyWith(color: colorScheme.onSurface),

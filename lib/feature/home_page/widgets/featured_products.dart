@@ -34,10 +34,10 @@ class FeaturedProducts extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Header Section
+
           _FeaturedHeader(title: title, onViewAllTap: onViewAllTap),
           const SizedBox(height: 12),
-          // Products List
+
           SizedBox(
             height: 270,
             child: ListView.separated(

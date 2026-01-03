@@ -45,7 +45,7 @@ class OneTimeDeal extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Header Section
+
             _OneTimeDealHeader(
               title: title,
               badgeImagePath: badgeImagePath,
@@ -53,7 +53,7 @@ class OneTimeDeal extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // Products List
+
             SizedBox(
               height: 200,
               child: ListView.separated(
@@ -69,7 +69,6 @@ class OneTimeDeal extends StatelessWidget {
                     showRating: false,
                     onTap: () => onProductTap?.call(product),
                     onFavoriteTap: () {
-                      print("One Time Deal Product");
                       Get.snackbar(
                         "One Time Deal",
                         "Add To Favourite",
@@ -101,7 +100,7 @@ class _OneTimeDealHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final controller = Get.put(OneTimeDealController());
+    Get.put(OneTimeDealController());
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

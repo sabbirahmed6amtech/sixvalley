@@ -45,13 +45,13 @@ class TodaysDeal extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Left Side - Banner
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ResponsiveHelper.isMobile(context) ? _TodaysDealBanner() : SizedBox.shrink(),
             ),
       
-            // Right Side - Product Details
+
             Expanded(
               child: _TodaysDealProductCard(
                 product: displayProduct,
@@ -143,7 +143,7 @@ class _TodaysDealProductCard extends StatelessWidget {
                     ],
                   ),
 
-                // Stock Left
+
                 if (product.stockLeft != null)
                   Row(
                     children: [
@@ -165,7 +165,7 @@ class _TodaysDealProductCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
 
-            // Product Name
+
             Text(
               product.name,
               style: h7Light.copyWith(
@@ -176,12 +176,12 @@ class _TodaysDealProductCard extends StatelessWidget {
             ),
             const SizedBox(height: 6),
 
-            // Price & Add to Cart Row
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               // crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // Price Section
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -225,7 +225,7 @@ class _TodaysDealProductCard extends StatelessWidget {
                   ],
                 ),
 
-                // Add to Cart Button
+
                 GestureDetector(
                   onTap: onAddToCartTap,
                   child: Container(
@@ -270,7 +270,7 @@ class _ProductImageWithFavorite extends StatelessWidget {
 
     return Stack(
       children: [
-        // Product Image
+
         Container(
           width: imageSize,
           height: imageSize,
@@ -294,7 +294,7 @@ class _ProductImageWithFavorite extends StatelessWidget {
           ),
         ),
 
-        // Favorite Button
+
         Positioned(
           right: 8,
           bottom: 8,

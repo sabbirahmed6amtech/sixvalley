@@ -7,15 +7,30 @@ class AppConstants {
   static const String appVersion = '1.0.0';
 
   // API Base URLs
-  static const String baseUrl = 'https://mocki.io';
-  static const String apiVersion = '/v1';
+  static const String baseUrl = 'https://grofresh-test.6amdev.xyz';
+  static const String storeBaseUrl = 'https://mocki.io';
+  static const String customerImageUrl = "https://grofresh-test.6amdev.xyz/storage/app/public/profile";
+  static const String apiVersion = '/api/v1';
 
-  // Endpoints
+  // API Endpoints
+  // Auth
+  static const String loginUri = '/auth/login';
+  static const String registerUri = '/auth/register';
+  static const String verifyPhoneUri = '/auth/verify-phone';
+  static const String checkPhoneUri = '/auth/check-phone';
+  
+  // Customer/Profile
+  static const String customerInfoUri = '/customer/info';
+  static const String updateProfileUri = '/customer/update-profile';
+
+  // Store
   static const String storeApi = 'https://mocki.io/v1/7b04cbc7-68ab-456e-9146-3b4bb1892b90';
 
   // Shared Preferences Keys
   static const String theme = 'sixvalley_theme';
   static const String token = 'sixvalley_token';
+  static const String tempToken = 'sixvalley_temp_token';
+  static const String pendingVerificationPhone = 'sixvalley_pending_verification_phone';
   static const String userId = 'sixvalley_user_id';
   static const String userRole = 'sixvalley_user_role';
   static const String languageCode = 'sixvalley_language_code';

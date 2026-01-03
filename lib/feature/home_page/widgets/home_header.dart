@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sixvalley/helper/responsive_helper.dart';
+import 'package:sixvalley/utils/app_constants.dart';
 import 'package:sixvalley/utils/dimensions.dart';
 import 'package:sixvalley/utils/images.dart';
 import 'package:sixvalley/utils/styles.dart';
+import '../../profile/controller/profile_controller.dart';
+import '../../profile/view/profile_screen.dart';
 
 class HomeHeader extends StatelessWidget {
   final int selectedCategoryIndex;
@@ -58,36 +62,71 @@ class _MobileHeader extends StatelessWidget {
                 Dimensions.paddingSizeDefault,
                 Dimensions.paddingSizeDefault,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              child: GetBuilder<ProfileController>(
+                builder: (profileController) {
+                  final profile = profileController.profileModel;
+                  final userName = profile?.fullName.isNotEmpty == true 
+                      ? profile!.fullName 
+                      : 'User';
+                  
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Hello, Welcome 👋',
-                        style: h5Regular.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary.withAlpha(230),
-                          
-                        ),
-                      ),
-                      const SizedBox(height: Dimensions.gapXSmall),
-                      Text(
-                        'Albert Stevano',
-                        style: h4SemiBold.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Hello, Welcome 👋',
+                            style: h5Regular.copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary.withAlpha(230),
+                              
+                            ),
                           ),
+                          const SizedBox(height: Dimensions.gapXSmall),
+                          Text(
+                            userName,
+                            style: h4SemiBold.copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                          ),
+                        ],
                       ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(() => const ProfileScreen());
+                        },
+                        child: Container(
+                          width: Dimensions.iconSizeMedium,
+                          height: Dimensions.iconSizeMedium,
+                          child: ClipOval(
+                            child: profile?.image != null && profile!.image!.isNotEmpty
+                                ? Image.network(
+                                    profile.image!.startsWith('http')
+                                        ? profile.image!
+                                        : '${AppConstants.customerImageUrl}/${profile.image!}',
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        Images.profile,
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
+                                  )
+                                : Icon( 
+                                    Icons.person,
+                                    color: Theme.of(context).colorScheme.onPrimary,
+                                    size: Dimensions.iconSizeMedium,
+                                  ),
+                          ),
+                        ),
+                      )
                     ],
-                  ),
-                  ClipOval(
-                    child: Image.asset(Images.profile, height: Dimensions.iconSizeMedium,),
-                  )
-                ],
+                  );
+                },
               ),
             ),
 
-            // Category Tabs
+
             SizedBox(
               height: Dimensions.buttonHeight * 0.65,
               child: ListView.builder(
@@ -169,7 +208,7 @@ class _WebHeader extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      // Logo
+
                       Image.asset(
                         Images.logo,
                         height: Dimensions.imageSizeSmall,
@@ -177,7 +216,7 @@ class _WebHeader extends StatelessWidget {
                       ),
                       const SizedBox(width: Dimensions.paddingSizeExtraLarge),
 
-                      // Search Bar
+
                       Expanded(
                         child: Container(
                           height: Dimensions.textFieldHeight,
@@ -203,7 +242,7 @@ class _WebHeader extends StatelessWidget {
                       ),
                       const SizedBox(width: Dimensions.paddingSizeLarge),
 
-                      // Profile
+
                       Container(
                         width: Dimensions.imageSizeSmall,
                         height: Dimensions.imageSizeSmall,
@@ -219,7 +258,7 @@ class _WebHeader extends StatelessWidget {
                   ),
                 ),
 
-                // Horizontal Category Menu
+
                 Container(
                   height: Dimensions.textFieldHeight,
                   padding: const EdgeInsets.symmetric(

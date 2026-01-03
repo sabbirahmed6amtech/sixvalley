@@ -2,6 +2,7 @@
 
 class Images {
   static String get logo => 'logo'.png;
+  static String get logoWhite => 'logo_white'.png;
   static String get profile => 'profile'.png;
   static String get banner1 => 'banner1'.png;
   static String get banner2 => 'banner2'.png;

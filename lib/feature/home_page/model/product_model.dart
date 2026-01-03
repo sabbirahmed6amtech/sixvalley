@@ -29,7 +29,7 @@ class ProductModel {
 
   /// Check discount
   bool get hasDiscount =>
-      originalPrice != null && discountPercent != null && discountPercent! > 0;
+      originalPrice != null && discountPercent > 0;
 
   /// Check rating
   bool get hasRating => rating != null && reviewCount != null;
