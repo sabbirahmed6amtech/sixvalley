@@ -210,7 +210,7 @@ class _WebHeader extends StatelessWidget {
                     children: [
 
                       Image.asset(
-                        Images.logo,
+                        Images.logoWhite,
                         height: Dimensions.imageSizeSmall,
                         
                       ),
