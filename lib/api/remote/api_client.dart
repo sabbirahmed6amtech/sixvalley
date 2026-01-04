@@ -136,4 +136,7 @@ class ApiClient {
   Future<void> updateHeader(String token) async {
     await sharedPreferences.setString(AppConstants.token, token);
   }
+  Future<void> rememberMe(String pref) async{
+    await sharedPreferences.setString(AppConstants.rememberMe, pref);
+  }
 }

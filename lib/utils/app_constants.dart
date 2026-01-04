@@ -29,6 +29,7 @@ class AppConstants {
   // Shared Preferences Keys
   static const String theme = 'sixvalley_theme';
   static const String token = 'sixvalley_token';
+  static const String rememberMe = '';
   static const String tempToken = 'sixvalley_temp_token';
   static const String pendingVerificationPhone = 'sixvalley_pending_verification_phone';
   static const String userId = 'sixvalley_user_id';

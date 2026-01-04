@@ -53,203 +53,58 @@ class ProfileScreen extends StatelessWidget {
                   color: Theme.of(context).primaryColor.withOpacity(0.1),
                   child: Column(
                     children: [
-                      Stack(
-                        children: [
-                          Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Theme.of(context).primaryColor,
-                                width: 3,
-                              ),
-                              color: Colors.grey[300],
-                            ),
-                            child: ClipOval(
-                              child: profileController.selectedImageFile != null
-                                  ? Image.file(
-                                      profileController.selectedImageFile!,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : profile.image != null &&
-                                        profile.image!.isNotEmpty
-                                  ? Image.network(
-                                      profile.image!.startsWith('http')
-                                          ? profile.image!
-                                          : '${AppConstants.customerImageUrl}/${profile.image!}',
-                                      fit: BoxFit.cover,
-                                      loadingBuilder:
-                                          (context, child, loadingProgress) {
-                                            if (loadingProgress == null)
-                                              return child;
-                                            return Center(
-                                              child: CircularProgressIndicator(
-                                                value:
-                                                    loadingProgress
-                                                            .expectedTotalBytes !=
-                                                        null
-                                                    ? loadingProgress
-                                                              .cumulativeBytesLoaded /
-                                                          loadingProgress
-                                                              .expectedTotalBytes!
-                                                    : null,
-                                              ),
-                                            );
-                                          },
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                            return Icon(
-                                              Icons.person,
-                                              size: 60,
-                                              color: Colors.grey[600],
-                                            );
-                                          },
-                                    )
-                                  :
-                                  Icon(
+                      Container(
+                        width: Dimensions.imageSizeLarge,
+                        height: Dimensions.imageSizeLarge,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Theme.of(context).primaryColor,
+                            width: Dimensions.radiusSmall,
+                          ),
+                          color: Colors.grey[300],
+                        ),
+                        child: ClipOval(
+                          child:
+                              profile.image != null && profile.image!.isNotEmpty
+                              ? Image.network(
+                                  profile.image!.startsWith('http')
+                                      ? profile.image!
+                                      : '${AppConstants.customerImageUrl}/${profile.image!}',
+                                  fit: BoxFit.cover,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                        if (loadingProgress == null)
+                                          return child;
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value:
+                                                loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                          .cumulativeBytesLoaded /
+                                                      loadingProgress
+                                                          .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Icon(
                                       Icons.person,
                                       size: 60,
                                       color: Colors.grey[600],
-                                    ),
-                            ),
-                          ),
-
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                shape: BoxShape.circle,
-                              ),
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.white,
-                                  size: 20,
+                                    );
+                                  },
+                                )
+                              : Icon(
+                                  Icons.person,
+                                  size: 60,
+                                  color: Colors.grey[600],
                                 ),
-                                onPressed: () {
-                                  profileController.pickImageForPreview();
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-
-                      profileController.selectedImageFile != null? Padding(
-                        padding: const EdgeInsets.all(Dimensions.paddingSizeExtraLarge),
-                        child: SizedBox(
-                          height: Dimensions.imageSizeExtraLarge,
-                          width: Dimensions.imageSizeExtraLarge,
-
-                          child: profileController.selectedImageFile != null? Image.file(
-                            profileController.selectedImageFile!,
-                            fit: BoxFit.cover,
-                          )
-                              : profile.image != null &&
-                              profile.image!.isNotEmpty
-                              ? Image.network(
-                            profile.image!.startsWith('http')
-                                ? profile.image!
-                                : '${AppConstants.customerImageUrl}/${profile.image!}',
-                            fit: BoxFit.cover,
-                            loadingBuilder:
-                                (context, child, loadingProgress) {
-                              if (loadingProgress == null) {
-                                return child;
-                              }
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  value:
-                                  loadingProgress
-                                      .expectedTotalBytes !=
-                                      null
-                                      ? loadingProgress
-                                      .cumulativeBytesLoaded /
-                                      loadingProgress
-                                          .expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                            errorBuilder:
-                                (context, error, stackTrace) {
-                              return Icon(
-                                Icons.person,
-                                size: 60,
-                                color: Colors.grey[600],
-                              );
-                            },
-                          )
-                              : null
-                        ),
-                      ):SizedBox(),
-
-                      // Show update/cancel buttons when image is selected
-                      if (profileController.selectedImageFile != null) ...[
-                        Gaps.vGapDefault,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton.icon(
-                              onPressed: profileController.isLoading
-                                  ? null
-                                  : () => profileController.updateProfile(
-                                      updateImage: true,
-                                    ),
-                              icon: profileController.isLoading
-                                  ? const SizedBox(
-                                      width: 16,
-                                      height: 16,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2,
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                              Colors.white,
-                                            ),
-                                      ),
-                                    )
-                                  : const Icon(Icons.check, size: 18),
-                              label: Text(
-                                profileController.isLoading
-                                    ? 'Uploading...'
-                                    : 'Update Image',
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 8,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            OutlinedButton.icon(
-                              onPressed: profileController.isLoading
-                                  ? null
-                                  : () =>
-                                        profileController.clearSelectedImage(),
-                              icon: const Icon(Icons.close, size: 18),
-                              label: const Text(
-                                'Cancel',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.red,
-                                side: const BorderSide(color: Colors.red),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12,
-                                  vertical: 8,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
 
                       Gaps.vGapDefault,
                       Text(

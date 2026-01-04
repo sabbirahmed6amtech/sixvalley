@@ -16,10 +16,10 @@ class SplashController extends GetxController {
     await Future.delayed(const Duration(seconds: 2));
 
     final sharedPreferences = Get.find<SharedPreferences>();
-    final token = sharedPreferences.getString(AppConstants.token);
+    final rememberMe = sharedPreferences.getString(AppConstants.rememberMe.toString());
     final pendingPhone = sharedPreferences.getString(AppConstants.pendingVerificationPhone);
 
-    if (token != null && token.isNotEmpty) {
+    if (rememberMe != null && rememberMe.isNotEmpty) {
       Get.offAll(() => MainScreen());
     } else if (pendingPhone != null && pendingPhone.isNotEmpty) {
       Get.offAll(() => OtpVerificationScreen(phoneNumber: pendingPhone));

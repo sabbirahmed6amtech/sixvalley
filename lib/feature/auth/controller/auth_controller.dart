@@ -43,8 +43,11 @@ class AuthController extends GetxController {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-
-        if (data['token'] != null && rememberMe) {
+        if(rememberMe){
+          await authRepository.apiClient.rememberMe('set');
+          print("================== Remember me set True ==========================");
+        }
+        if (data['token'] != null) {
           await authRepository.apiClient.updateHeader(data['token']);
         }
 
@@ -188,6 +191,8 @@ class AuthController extends GetxController {
   Future<void> logout() async {
     try {
       await authRepository.apiClient.updateHeader('');
+      await authRepository.apiClient.rememberMe('');
+      print("===================== Remember me Cleared ==============");
 
       _showToast('Logged out successfully', isError: false);
 

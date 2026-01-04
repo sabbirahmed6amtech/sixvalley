@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sixvalley/helper/responsive_helper.dart';
+import 'package:sixvalley/utils/app_constants.dart';
 import '../../../utils/dimensions.dart';
 import '../../../utils/gaps.dart';
 import '../../../utils/styles.dart';
@@ -59,6 +61,107 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       'Update Your Information',
                       style: h4SemiBold.copyWith(
                         color: Theme.of(context).textTheme.bodyLarge?.color,
+                      ),
+                    ),
+
+                    Gaps.vGapLarge,
+
+                    // Profile Picture Section
+                    Center(
+                      child: Column(
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                width: Dimensions.imageSizeLarge,
+                                height: Dimensions.imageSizeLarge,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                    width: Dimensions.radiusSmall,
+                                  ),
+                                  color: Colors.grey[300],
+                                ),
+                                child: ClipOval(
+                                  child:
+                                      profileController.selectedImageFile !=
+                                          null
+                                      ? ResponsiveHelper.isWeb()
+                                            ? Image.network(
+                                                profileController
+                                                    .selectedImageFile!
+                                                    .path,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Image.file(
+                                                profileController
+                                                    .selectedImageFile!,
+                                                fit: BoxFit.cover,
+                                              )
+                                      : profileController.profileModel?.image !=
+                                                null &&
+                                            profileController
+                                                .profileModel!
+                                                .image!
+                                                .isNotEmpty
+                                      ? Image.network(
+                                          profileController.profileModel!.image!
+                                                  .startsWith('http')
+                                              ? profileController
+                                                    .profileModel!
+                                                    .image!
+                                              : '${AppConstants.customerImageUrl}/${profileController.profileModel!.image!}',
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                                return Icon(
+                                                  Icons.person,
+                                                  size: 60,
+                                                  color: Colors.grey[600],
+                                                );
+                                              },
+                                        )
+                                      : Icon(
+                                          Icons.person,
+                                          size: 60,
+                                          color: Colors.grey[600],
+                                        ),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                    onPressed: () {
+                                      profileController.pickImageForPreview();
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (profileController.selectedImageFile != null) ...[
+                            Gaps.vGapDefault,
+                            Text(
+                              'New Image Selected',
+                              style: interRegular.copyWith(
+                                color: Colors.green,
+                                fontSize: Dimensions.fontSizeSmall,
+                              ),
+                            ),
+                          ],
+                        ],
                       ),
                     ),
 
@@ -133,7 +236,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 firstName: _firstNameController.text.trim(),
                                 lastName: _lastNameController.text.trim(),
                                 email: _emailController.text.trim(),
-                                updateImage: false,
+                                updateImage:
+                                    profileController.selectedImageFile != null,
                               )
                               .then((_) {
                                 if (!profileController.isLoading) {
@@ -143,13 +247,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                       },
                     ),
-
                     Gaps.vGapDefault,
-
                     CustomButton(
                       text: 'Cancel',
                       backgroundColor: Colors.grey,
-                      onPressed: () => Get.back(),
+                      onPressed: () {
+                        profileController.clearSelectedImage();
+                        Get.back();
+                      },
                     ),
 
                     Gaps.vGapExtraLarge,

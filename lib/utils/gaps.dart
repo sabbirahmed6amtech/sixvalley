@@ -18,6 +18,7 @@ class Gaps {
   static const SizedBox vGapDefault = SizedBox(height: 16);
   static const SizedBox vGapLarge = SizedBox(height: 20);
   static const SizedBox vGapExtraLarge = SizedBox(height: 24);
+  static const SizedBox vGapExtraXLarge = SizedBox(height: 40);
 
   // Dividers
   static const SizedBox dividerSmall = SizedBox(height: 1);

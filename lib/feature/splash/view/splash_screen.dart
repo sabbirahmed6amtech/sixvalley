@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sixvalley/utils/dimensions.dart';
+import 'package:sixvalley/utils/gaps.dart';
 import '../../../utils/images.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -14,10 +16,10 @@ class SplashScreen extends StatelessWidget {
           children: [
             Image.asset(
               Images.logo,
-              width: 150,
-              height: 150,
+              width: Dimensions.imageSizeExtraLarge,
+              height: Dimensions.imageSizeExtraLarge,
             ),
-            const SizedBox(height: 40),
+            Gaps.vGapExtraXLarge,
             CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(
                 Theme.of(context).primaryColor,
