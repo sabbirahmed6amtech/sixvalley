@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import '../model/profile_model.dart';
 import '../repository/profile_repository.dart';
@@ -73,51 +74,44 @@ class ProfileController extends GetxController {
 
       if (updateImage && _selectedImageFile.value != null) {
         body['_method'] = 'PUT';
+      }
 
-        final response = await profileRepository.updateProfileWithImage(
-          body,
-          _selectedImageFile.value!,
+      final response = await profileRepository.updateProfile(
+        body,
+        imageFile: updateImage ? _selectedImageFile.value : null,
+      );
+
+      String responseBody;
+      int statusCode;
+
+      if (response is http.StreamedResponse) {
+        responseBody = await response.stream.bytesToString();
+        statusCode = response.statusCode;
+      } else {
+        responseBody = (response as http.Response).body;
+        statusCode = response.statusCode;
+      }
+
+      _isLoading.value = false;
+      update();
+
+      if (statusCode == 200) {
+        final data = jsonDecode(responseBody);
+        _showToast(
+          data['message'] ?? 'Profile updated successfully',
+          isError: false,
         );
 
-        final responseData = await response.stream.bytesToString();
-        _isLoading.value = false;
-        update();
-
-        if (response.statusCode == 200) {
-          final data = jsonDecode(responseData);
-          _showToast(
-            data['message'] ?? 'Profile updated successfully',
-            isError: false,
-          );
-
+        if (updateImage) {
           _selectedImageFile.value = null;
-          await getProfile();
-        } else {
-          final data = jsonDecode(responseData);
-          _showToast(
-            data['message'] ?? 'Failed to update profile',
-            isError: true,
-          );
         }
+        await getProfile();
       } else {
-
-        final response = await profileRepository.updateProfile(body);
-        _isLoading.value = false;
-        update();
-        if (response.statusCode == 200) {
-          final data = jsonDecode(response.body);
-          _showToast(
-            data['message'] ?? 'Profile updated successfully',
-            isError: false,
-          );
-          await getProfile();
-        } else {
-          final data = jsonDecode(response.body);
-          _showToast(
-            data['message'] ?? 'Failed to update profile',
-            isError: true,
-          );
-        }
+        final data = jsonDecode(responseBody);
+        _showToast(
+          data['message'] ?? 'Failed to update profile',
+          isError: true,
+        );
       }
     } catch (e) {
       _isLoading.value = false;

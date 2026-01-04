@@ -12,22 +12,19 @@ class ProfileRepository {
     return await apiClient.get(AppConstants.customerInfoUri);
   }
 
-  Future<http.Response> updateProfile(Map<String, String> body) async {
-    return await apiClient.put(
-      AppConstants.updateProfileUri,
-      body: body,
-    );
-  }
-
-  Future<http.StreamedResponse> updateProfileWithImage(
-    Map<String, String> body,
-    File imageFile,
-  ) async {
-    return await apiClient.postMultipart(
-      AppConstants.updateProfileUri,
-      body,
-      file: imageFile,
-      fileFieldName: 'image',
-    );
+  Future<dynamic> updateProfile(
+    Map<String, String> body, {
+    File? imageFile,
+  }) async {
+    if (imageFile != null) {
+      return await apiClient.postMultipart(
+        AppConstants.updateProfileUri,
+        body,
+        file: imageFile,
+        fileFieldName: 'image',
+      );
+    } else {
+      return await apiClient.put(AppConstants.updateProfileUri, body: body);
+    }
   }
 }
