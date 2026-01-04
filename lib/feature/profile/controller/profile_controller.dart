@@ -18,6 +18,9 @@ class ProfileController extends GetxController {
   final RxBool _isLoading = false.obs;
   bool get isLoading => _isLoading.value;
 
+  final Rx<File?> _selectedImageFile = Rx<File?>(null);
+  File? get selectedImageFile => _selectedImageFile.value;
+
   @override
   void onInit() {
     super.onInit();
@@ -27,13 +30,10 @@ class ProfileController extends GetxController {
   Future<void> getProfile() async {
     _isLoading.value = true;
     update();
-
     try {
       final response = await profileRepository.getProfile();
-
       _isLoading.value = false;
       update();
-
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         _profileModel.value = ProfileModel.fromJson(data);
@@ -50,40 +50,74 @@ class ProfileController extends GetxController {
   }
 
   Future<void> updateProfile({
-    required String firstName,
-    required String lastName,
-    required String email,
+    String? firstName,
+    String? lastName,
+    String? email,
+    bool updateImage = false,
   }) async {
+    if (updateImage && _selectedImageFile.value == null) {
+      _showToast('Please select an image first', isError: true);
+      return;
+    }
+
     _isLoading.value = true;
     update();
 
     try {
       Map<String, String> body = {
-        'f_name': firstName,
-        'l_name': lastName,
-        'email': email,
+        'f_name': firstName ?? _profileModel.value?.fName ?? '',
+        'l_name': lastName ?? _profileModel.value?.lName ?? '',
+        'email': email ?? _profileModel.value?.email ?? '',
         'phone': _profileModel.value?.phone ?? '',
       };
 
-      final response = await profileRepository.updateProfile(body);
+      if (updateImage && _selectedImageFile.value != null) {
+        body['_method'] = 'PUT';
 
-      _isLoading.value = false;
-      update();
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        _showToast(
-          data['message'] ?? 'Profile updated successfully',
-          isError: false,
+        final response = await profileRepository.updateProfileWithImage(
+          body,
+          _selectedImageFile.value!,
         );
 
-        await getProfile();
+        final responseData = await response.stream.bytesToString();
+        _isLoading.value = false;
+        update();
+
+        if (response.statusCode == 200) {
+          final data = jsonDecode(responseData);
+          _showToast(
+            data['message'] ?? 'Profile updated successfully',
+            isError: false,
+          );
+
+          _selectedImageFile.value = null;
+          await getProfile();
+        } else {
+          final data = jsonDecode(responseData);
+          _showToast(
+            data['message'] ?? 'Failed to update profile',
+            isError: true,
+          );
+        }
       } else {
-        final data = jsonDecode(response.body);
-        _showToast(
-          data['message'] ?? 'Failed to update profile',
-          isError: true,
-        );
+
+        final response = await profileRepository.updateProfile(body);
+        _isLoading.value = false;
+        update();
+        if (response.statusCode == 200) {
+          final data = jsonDecode(response.body);
+          _showToast(
+            data['message'] ?? 'Profile updated successfully',
+            isError: false,
+          );
+          await getProfile();
+        } else {
+          final data = jsonDecode(response.body);
+          _showToast(
+            data['message'] ?? 'Failed to update profile',
+            isError: true,
+          );
+        }
       }
     } catch (e) {
       _isLoading.value = false;
@@ -92,7 +126,7 @@ class ProfileController extends GetxController {
     }
   }
 
-  Future<void> uploadProfilePicture() async {
+  Future<void> pickImageForPreview() async {
     try {
       final ImagePicker picker = ImagePicker();
       final XFile? image = await picker.pickImage(
@@ -104,46 +138,18 @@ class ProfileController extends GetxController {
 
       if (image == null) return;
 
-      _isLoading.value = true;
+      _selectedImageFile.value = File(image.path);
       update();
 
-      final file = File(image.path);
-
-      Map<String, String> body = {
-        'f_name': _profileModel.value?.fName ?? '',
-        'l_name': _profileModel.value?.lName ?? '',
-        'email': _profileModel.value?.email ?? '',
-        'phone': _profileModel.value?.phone ?? '',
-        '_method': 'PUT',
-      };
-
-      final response = await profileRepository.updateProfileWithImage(
-        body,
-        file,
-      );
-      final responseData = await response.stream.bytesToString();
-
-      _isLoading.value = false;
-      update();
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(responseData);
-        _showToast(
-          data['message'] ?? 'Profile picture updated successfully',
-          isError: false,
-        );
-
-        await getProfile();
-      } else {
-        final data = jsonDecode(responseData);
-        _showToast(data['message'] ?? 'Failed to upload image', isError: true);
-      }
+      // _showToast('Image selected. Click Update Image to save', isError: false);
     } catch (e) {
-      _isLoading.value = false;
-      update();
-      print('Error: $e');
-      _showToast('Error: ${e.toString()}', isError: true);
+      // _showToast('Error selecting image: ${e.toString()}', isError: true);
     }
+  }
+
+  void clearSelectedImage() {
+    _selectedImageFile.value = null;
+    update();
   }
 
   void _showToast(String message, {required bool isError}) {

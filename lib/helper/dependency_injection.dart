@@ -5,7 +5,7 @@ import '../feature/auth/repository/auth_repository.dart';
 import '../feature/profile/controller/profile_controller.dart';
 import '../feature/profile/repository/profile_repository.dart';
 import '../feature/splash/controller/splash_controller.dart';
-import '../helper/api_client.dart';
+import '../api/remote/api_client.dart';
 
 Future<void> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();

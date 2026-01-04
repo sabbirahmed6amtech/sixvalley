@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../utils/dimensions.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final String? hintText;
   final String? labelText;
   final TextEditingController? controller;
@@ -37,39 +37,44 @@ class CustomTextField extends StatelessWidget {
   });
 
   @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      keyboardType: keyboardType,
-      obscureText: obscureText,
-      validator: validator,
-      onChanged: onChanged,
-      inputFormatters: inputFormatters,
-      maxLines: maxLines,
-      enabled: enabled,
-      focusNode: focusNode,
+      controller: widget.controller,
+      keyboardType: widget.keyboardType,
+      obscureText: widget.obscureText,
+      validator: widget.validator,
+      onChanged: widget.onChanged,
+      inputFormatters: widget.inputFormatters,
+      maxLines: widget.maxLines,
+      enabled: widget.enabled,
+      focusNode: widget.focusNode,
       style: TextStyle(
         fontSize: Dimensions.fontSizeDefault,
         color: Theme.of(context).textTheme.bodyLarge?.color,
       ),
       decoration: InputDecoration(
-        labelText: labelText,
+        labelText: widget.labelText,
         labelStyle: TextStyle(
           fontSize: Dimensions.fontSizeDefault,
           color: Theme.of(context).textTheme.bodyLarge?.color,
         ),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
-        hintText: hintText,
+        hintText: widget.hintText,
         hintStyle: TextStyle(
           color: Theme.of(context).hintColor.withOpacity(0.5),
           fontSize: Dimensions.fontSizeDefault,
         ),
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
+        prefixIcon: widget.prefixIcon,
+        suffixIcon: widget.suffixIcon,
         filled: true,
         fillColor: Theme.of(context).cardColor,
         contentPadding: EdgeInsets.symmetric(
-          horizontal: prefixIcon != null ? Dimensions.paddingSizeSmall : Dimensions.paddingSizeMedium,
+          horizontal: widget.prefixIcon != null ? Dimensions.paddingSizeSmall : Dimensions.paddingSizeMedium,
           vertical: Dimensions.paddingSizeMedium,
         ),
         border: OutlineInputBorder(
@@ -82,7 +87,7 @@ class CustomTextField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
           borderSide: BorderSide(
-            color: Theme.of(context).dividerColor.withOpacity(0.3),
+            color: Theme.of(context).dividerColor.withAlpha(40),
             width: 1,
           ),
         ),

@@ -55,6 +55,7 @@ class AppConstants {
     LanguageModel(languageName: 'বাংলা', countryCode: 'BD', languageCode: 'bn'),
     LanguageModel(languageName: 'Hindi', countryCode: 'IN', languageCode: 'hi'),
   ];
+
   // Categories
   static const List<String> popularCategories = [
     'Electronics',

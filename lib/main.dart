@@ -11,7 +11,6 @@ void main() async {
   await di.init();
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override

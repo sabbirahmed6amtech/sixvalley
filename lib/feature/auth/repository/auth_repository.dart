@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import '../../../helper/api_client.dart';
+import '../../../api/remote/api_client.dart';
 import '../../../utils/app_constants.dart';
 import '../model/login_model.dart';
 import '../model/register_model.dart';

@@ -16,13 +16,11 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        title: const Text('My Profile'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('My Profile'), centerTitle: true),
       body: GetBuilder<ProfileController>(
         builder: (profileController) {
-          if (profileController.isLoading && profileController.profileModel == null) {
+          if (profileController.isLoading &&
+              profileController.profileModel == null) {
             return const Center(child: CircularProgressIndicator());
           }
 
@@ -47,16 +45,16 @@ class ProfileScreen extends StatelessWidget {
           return SingleChildScrollView(
             child: Column(
               children: [
-
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(Dimensions.paddingSizeExtraLarge),
+                  padding: const EdgeInsets.all(
+                    Dimensions.paddingSizeExtraLarge,
+                  ),
                   color: Theme.of(context).primaryColor.withOpacity(0.1),
                   child: Column(
                     children: [
                       Stack(
                         children: [
-
                           Container(
                             width: 120,
                             height: 120,
@@ -69,39 +67,53 @@ class ProfileScreen extends StatelessWidget {
                               color: Colors.grey[300],
                             ),
                             child: ClipOval(
-                              child: profile.image != null && profile.image!.isNotEmpty
+                              child: profileController.selectedImageFile != null
+                                  ? Image.file(
+                                      profileController.selectedImageFile!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : profile.image != null &&
+                                        profile.image!.isNotEmpty
                                   ? Image.network(
                                       profile.image!.startsWith('http')
                                           ? profile.image!
                                           : '${AppConstants.customerImageUrl}/${profile.image!}',
                                       fit: BoxFit.cover,
-                                      loadingBuilder: (context, child, loadingProgress) {
-                                        if (loadingProgress == null) return child;
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress.expectedTotalBytes != null
-                                                ? loadingProgress.cumulativeBytesLoaded /
-                                                    loadingProgress.expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
-                                      errorBuilder: (context, error, stackTrace) {
-                                        return Icon(
-                                          Icons.person,
-                                          size: 60,
-                                          color: Colors.grey[600],
-                                        );
-                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                            if (loadingProgress == null)
+                                              return child;
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value:
+                                                    loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                              .cumulativeBytesLoaded /
+                                                          loadingProgress
+                                                              .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                            return Icon(
+                                              Icons.person,
+                                              size: 60,
+                                              color: Colors.grey[600],
+                                            );
+                                          },
                                     )
-                                  : Icon(
+                                  :
+                                  Icon(
                                       Icons.person,
                                       size: 60,
                                       color: Colors.grey[600],
                                     ),
                             ),
                           ),
-                          
 
                           Positioned(
                             bottom: 0,
@@ -118,14 +130,127 @@ class ProfileScreen extends StatelessWidget {
                                   size: 20,
                                 ),
                                 onPressed: () {
-                                  profileController.uploadProfilePicture();
+                                  profileController.pickImageForPreview();
                                 },
                               ),
                             ),
                           ),
                         ],
                       ),
-                      
+
+                      profileController.selectedImageFile != null? Padding(
+                        padding: const EdgeInsets.all(Dimensions.paddingSizeExtraLarge),
+                        child: SizedBox(
+                          height: Dimensions.imageSizeExtraLarge,
+                          width: Dimensions.imageSizeExtraLarge,
+
+                          child: profileController.selectedImageFile != null? Image.file(
+                            profileController.selectedImageFile!,
+                            fit: BoxFit.cover,
+                          )
+                              : profile.image != null &&
+                              profile.image!.isNotEmpty
+                              ? Image.network(
+                            profile.image!.startsWith('http')
+                                ? profile.image!
+                                : '${AppConstants.customerImageUrl}/${profile.image!}',
+                            fit: BoxFit.cover,
+                            loadingBuilder:
+                                (context, child, loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              }
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value:
+                                  loadingProgress
+                                      .expectedTotalBytes !=
+                                      null
+                                      ? loadingProgress
+                                      .cumulativeBytesLoaded /
+                                      loadingProgress
+                                          .expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                            errorBuilder:
+                                (context, error, stackTrace) {
+                              return Icon(
+                                Icons.person,
+                                size: 60,
+                                color: Colors.grey[600],
+                              );
+                            },
+                          )
+                              : null
+                        ),
+                      ):SizedBox(),
+
+                      // Show update/cancel buttons when image is selected
+                      if (profileController.selectedImageFile != null) ...[
+                        Gaps.vGapDefault,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton.icon(
+                              onPressed: profileController.isLoading
+                                  ? null
+                                  : () => profileController.updateProfile(
+                                      updateImage: true,
+                                    ),
+                              icon: profileController.isLoading
+                                  ? const SizedBox(
+                                      width: 16,
+                                      height: 16,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                              Colors.white,
+                                            ),
+                                      ),
+                                    )
+                                  : const Icon(Icons.check, size: 18),
+                              label: Text(
+                                profileController.isLoading
+                                    ? 'Uploading...'
+                                    : 'Update Image',
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 8,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            OutlinedButton.icon(
+                              onPressed: profileController.isLoading
+                                  ? null
+                                  : () =>
+                                        profileController.clearSelectedImage(),
+                              icon: const Icon(Icons.close, size: 18),
+                              label: const Text(
+                                'Cancel',
+                                style: TextStyle(fontSize: 12),
+                              ),
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: Colors.red,
+                                side: const BorderSide(color: Colors.red),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 8,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+
                       Gaps.vGapDefault,
                       Text(
                         profile.fullName.isNotEmpty ? profile.fullName : 'User',
@@ -133,9 +258,8 @@ class ProfileScreen extends StatelessWidget {
                           color: Theme.of(context).textTheme.bodyLarge?.color,
                         ),
                       ),
-                      
+
                       Gaps.vGapSmall,
-                      
 
                       if (profile.email != null)
                         Text(
@@ -147,9 +271,8 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                
+
                 Gaps.vGapLarge,
-                
 
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -164,9 +287,8 @@ class ProfileScreen extends StatelessWidget {
                           color: Theme.of(context).textTheme.bodyLarge?.color,
                         ),
                       ),
-                      
+
                       Gaps.vGapDefault,
-                      
 
                       _buildInfoTile(
                         context,
@@ -174,9 +296,8 @@ class ProfileScreen extends StatelessWidget {
                         label: 'First Name',
                         value: profile.fName ?? 'N/A',
                       ),
-                      
+
                       const Divider(),
-                      
 
                       _buildInfoTile(
                         context,
@@ -184,9 +305,8 @@ class ProfileScreen extends StatelessWidget {
                         label: 'Last Name',
                         value: profile.lName ?? 'N/A',
                       ),
-                      
+
                       const Divider(),
-                      
 
                       _buildInfoTile(
                         context,
@@ -194,9 +314,8 @@ class ProfileScreen extends StatelessWidget {
                         label: 'Email',
                         value: profile.email ?? 'N/A',
                       ),
-                      
+
                       const Divider(),
-                      
 
                       _buildInfoTile(
                         context,
@@ -204,9 +323,8 @@ class ProfileScreen extends StatelessWidget {
                         label: 'Phone',
                         value: profile.phone ?? 'N/A',
                       ),
-                      
+
                       const Divider(),
-                      
 
                       if (profile.createdAt != null)
                         _buildInfoTile(
@@ -215,9 +333,8 @@ class ProfileScreen extends StatelessWidget {
                           label: 'Member Since',
                           value: _formatDate(profile.createdAt!),
                         ),
-                      
+
                       Gaps.vGapExtraLarge,
-                      
 
                       CustomButton(
                         text: 'Edit Profile',
@@ -225,9 +342,8 @@ class ProfileScreen extends StatelessWidget {
                           Get.to(() => const EditProfileScreen());
                         },
                       ),
-                      
+
                       Gaps.vGapDefault,
-                      
 
                       CustomButton(
                         text: 'Logout',
@@ -237,7 +353,7 @@ class ProfileScreen extends StatelessWidget {
                           authController.logout();
                         },
                       ),
-                      
+
                       Gaps.vGapExtraLarge,
                     ],
                   ),
@@ -257,14 +373,12 @@ class ProfileScreen extends StatelessWidget {
     required String value,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
+      padding: const EdgeInsets.symmetric(
+        vertical: Dimensions.paddingSizeSmall,
+      ),
       child: Row(
         children: [
-          Icon(
-            icon,
-            color: Theme.of(context).primaryColor,
-            size: 24,
-          ),
+          Icon(icon, color: Theme.of(context).primaryColor, size: 24),
           Gaps.hGapDefault,
           Expanded(
             child: Column(

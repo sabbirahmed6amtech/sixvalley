@@ -44,10 +44,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        title: const Text('Edit Profile'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Edit Profile'), centerTitle: true),
       body: GetBuilder<ProfileController>(
         builder: (profileController) {
           return SingleChildScrollView(
@@ -64,9 +61,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         color: Theme.of(context).textTheme.bodyLarge?.color,
                       ),
                     ),
-                    
+
                     Gaps.vGapLarge,
-                    
 
                     CustomTextField(
                       labelText: 'First Name *',
@@ -78,9 +74,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         return null;
                       },
                     ),
-                    
+
                     Gaps.vGapLarge,
-                    
 
                     CustomTextField(
                       labelText: 'Last Name *',
@@ -92,9 +87,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         return null;
                       },
                     ),
-                    
+
                     Gaps.vGapLarge,
- 
+
                     CustomTextField(
                       labelText: 'Email *',
                       controller: _emailController,
@@ -108,51 +103,55 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                         return null;
                       },
-                    ),     
-                    Gaps.vGapLarge,                   
+                    ),
+                    Gaps.vGapLarge,
                     // Phone (Read-only)
                     CustomTextField(
                       labelText: 'Phone',
                       controller: _phoneController,
                       enabled: false,
                       suffixIcon: const Icon(Icons.lock_outline),
-                    ),                    
-                    Gaps.vGapSmall,                   
+                    ),
+                    Gaps.vGapSmall,
                     Text(
                       'Phone number cannot be changed',
                       style: interRegular.copyWith(
                         fontSize: Dimensions.fontSizeSmall,
                         color: Theme.of(context).hintColor,
                       ),
-                    ),                   
-                    const SizedBox(height: Dimensions.paddingSizeExtraMoreLarge),
+                    ),
+                    const SizedBox(
+                      height: Dimensions.paddingSizeExtraMoreLarge,
+                    ),
                     CustomButton(
                       text: 'Update Profile',
                       isLoading: profileController.isLoading,
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          profileController.updateProfile(
-                            firstName: _firstNameController.text.trim(),
-                            lastName: _lastNameController.text.trim(),
-                            email: _emailController.text.trim(),
-                          ).then((_) {
-                            if (!profileController.isLoading) {
-                              Get.back();
-                            }
-                          });
+                          profileController
+                              .updateProfile(
+                                firstName: _firstNameController.text.trim(),
+                                lastName: _lastNameController.text.trim(),
+                                email: _emailController.text.trim(),
+                                updateImage: false,
+                              )
+                              .then((_) {
+                                if (!profileController.isLoading) {
+                                  Get.back();
+                                }
+                              });
                         }
                       },
                     ),
-                    
+
                     Gaps.vGapDefault,
-                    
 
                     CustomButton(
                       text: 'Cancel',
                       backgroundColor: Colors.grey,
                       onPressed: () => Get.back(),
                     ),
-                    
+
                     Gaps.vGapExtraLarge,
                   ],
                 ),

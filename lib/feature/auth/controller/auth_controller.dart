@@ -142,7 +142,6 @@ class AuthController extends GetxController {
           await authRepository.apiClient.updateHeader(data['token']);
         }
 
-        // Clear pending verification data
         await authRepository.apiClient.sharedPreferences.remove(AppConstants.tempToken);
         await authRepository.apiClient.sharedPreferences.remove(AppConstants.pendingVerificationPhone);
 

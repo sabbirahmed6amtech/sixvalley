@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import '../utils/app_constants.dart';
+import '../../utils/app_constants.dart';
 
 class ApiClient {
   final SharedPreferences sharedPreferences;
