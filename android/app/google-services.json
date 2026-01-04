@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "220421475216",
+    "project_id": "sixvalley-3cd02",
+    "storage_bucket": "sixvalley-3cd02.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220421475216:android:af2fea292c5dff860fc115",
+        "android_client_info": {
+          "package_name": "com.example.sixvalley"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG6iZz_O5YTmHVKikPWbdcZPMQn6xSMEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
