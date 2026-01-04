@@ -93,14 +93,14 @@ class ProfileScreen extends StatelessWidget {
                                   errorBuilder: (context, error, stackTrace) {
                                     return Icon(
                                       Icons.person,
-                                      size: 60,
+                                      size: Dimensions.iconSizeXLarge,
                                       color: Colors.grey[600],
                                     );
                                   },
                                 )
                               : Icon(
                                   Icons.person,
-                                  size: 60,
+                                  size: Dimensions.iconSizeXLarge,
                                   color: Colors.grey[600],
                                 ),
                         ),
@@ -233,7 +233,7 @@ class ProfileScreen extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(icon, color: Theme.of(context).primaryColor, size: 24),
+          Icon(icon, color: Theme.of(context).primaryColor, size: Dimensions.iconSizeDefault),
           Gaps.hGapDefault,
           Expanded(
             child: Column(
@@ -246,7 +246,7 @@ class ProfileScreen extends StatelessWidget {
                     color: Theme.of(context).hintColor,
                   ),
                 ),
-                const SizedBox(height: 4),
+                Gaps.vGapXSmall,
                 Text(
                   value,
                   style: interMedium.copyWith(

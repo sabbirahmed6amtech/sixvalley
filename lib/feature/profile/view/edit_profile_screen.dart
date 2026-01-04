@@ -117,14 +117,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                               (context, error, stackTrace) {
                                                 return Icon(
                                                   Icons.person,
-                                                  size: 60,
+                                                  size: Dimensions.iconSizeXLarge,
                                                   color: Colors.grey[600],
                                                 );
                                               },
                                         )
                                       : Icon(
                                           Icons.person,
-                                          size: 60,
+                                          size: Dimensions.iconSizeXLarge,
                                           color: Colors.grey[600],
                                         ),
                                 ),
@@ -141,7 +141,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     icon: const Icon(
                                       Icons.camera_alt,
                                       color: Colors.white,
-                                      size: 20,
+                                      size: Dimensions.iconSizeDefault,
                                     ),
                                     onPressed: () {
                                       profileController.pickImageForPreview();

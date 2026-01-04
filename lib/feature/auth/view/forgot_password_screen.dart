@@ -64,9 +64,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     height: Dimensions.imageSizeDefault,
                     fit: BoxFit.contain,
                   ),
-                  
                   const SizedBox(height: Dimensions.paddingSizeExtraMoreLarge * 2),
-
                   Text(
                     'Forgot Password',
                     style: interBold.copyWith(
@@ -74,9 +72,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
-
                   Gaps.vGapDefault,
-
                   Text(
                     'Enter phone number for password reset',
                     style: interRegular.copyWith(
@@ -85,7 +81,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  
                   const SizedBox(height: Dimensions.paddingSizeExtraMoreLarge * 2),
                   CustomTextField(
                     labelText: 'Phone',

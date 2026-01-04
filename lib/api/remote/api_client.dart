@@ -85,35 +85,35 @@ class ApiClient {
     }
   }
 
-  Future<http.StreamedResponse> putMultipart(
-    String uri,
-    Map<String, String> fields, {
-    File? file,
-    String? fileFieldName,
-  }) async {
-    try {
-      var request = http.MultipartRequest(
-        'PUT',
-        Uri.parse(AppConstants.baseUrl + AppConstants.apiVersion + uri),
-      );
-
-      String? token = sharedPreferences.getString(AppConstants.token);
-      if (token != null && token.isNotEmpty) {
-        request.headers['Authorization'] = 'Bearer $token';
-      }
-
-      request.fields.addAll(fields);
-      if (file != null && fileFieldName != null) {
-        request.files.add(
-          await http.MultipartFile.fromPath(fileFieldName, file.path),
-        );
-      }
-
-      return await request.send();
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // Future<http.StreamedResponse> putMultipart(
+  //   String uri,
+  //   Map<String, String> fields, {
+  //   File? file,
+  //   String? fileFieldName,
+  // }) async {
+  //   try {
+  //     var request = http.MultipartRequest(
+  //       'PUT',
+  //       Uri.parse(AppConstants.baseUrl + AppConstants.apiVersion + uri),
+  //     );
+  //
+  //     String? token = sharedPreferences.getString(AppConstants.token);
+  //     if (token != null && token.isNotEmpty) {
+  //       request.headers['Authorization'] = 'Bearer $token';
+  //     }
+  //
+  //     request.fields.addAll(fields);
+  //     if (file != null && fileFieldName != null) {
+  //       request.files.add(
+  //         await http.MultipartFile.fromPath(fileFieldName, file.path),
+  //       );
+  //     }
+  //
+  //     return await request.send();
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   Future<Map<String, String>> _getHeaders(Map<String, String>? customHeaders) async {
     Map<String, String> headers = {

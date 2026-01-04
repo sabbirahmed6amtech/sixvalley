@@ -187,7 +187,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         ),
                                         color: Theme.of(
                                           context,
-                                        ).dividerColor.withOpacity(0.3),
+                                        ).dividerColor.withAlpha(40),
                                       ),
                                     ],
                                   ),
@@ -205,7 +205,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   borderSide: BorderSide(
                                     color: Theme.of(
                                       context,
-                                    ).dividerColor.withOpacity(0.3),
+                                    ).dividerColor.withAlpha(40),
                                     width: 1,
                                   ),
                                 ),
@@ -216,7 +216,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   borderSide: BorderSide(
                                     color: Theme.of(
                                       context,
-                                    ).dividerColor.withOpacity(0.3),
+                                    ).dividerColor.withAlpha(40),
                                     width: 1,
                                   ),
                                 ),
@@ -268,8 +268,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  height: 24,
-                                  width: 24,
+                                  height: Dimensions.sizeBoxHeight,
+                                  width: Dimensions.sizeBoxHeight,
                                   child: Checkbox(
                                     value: _agreeToTerms,
                                     onChanged: (value) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sixvalley/utils/app_constants.dart';
 import '../controller/auth_controller.dart';
 import '../widgets/custom_button.dart';
 import '../../../utils/dimensions.dart';
@@ -25,7 +26,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       List.generate(6, (index) => TextEditingController());
   final List<FocusNode> _focusNodes = List.generate(6, (index) => FocusNode());
 
-  int _resendTimer = 60;
+  int _resendTimer = AppConstants.otpResendTimer;
   Timer? _timer;
   bool _canResend = false;
 
@@ -37,7 +38,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   void _startTimer() {
     _canResend = false;
-    _resendTimer = 60;
+    _resendTimer = AppConstants.otpResendTimer;
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
@@ -133,7 +134,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             children: List.generate(
                               6,
                               (index) => SizedBox(
-                                width: 50,
+                                width: Dimensions.textFieldHeight,
                                 child: TextField(
                                   controller: _otpControllers[index],
                                   focusNode: _focusNodes[index],

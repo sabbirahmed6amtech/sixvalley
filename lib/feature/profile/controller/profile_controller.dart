@@ -5,20 +5,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:sixvalley/utils/dimensions.dart';
 import '../model/profile_model.dart';
 import '../repository/profile_repository.dart';
 
 class ProfileController extends GetxController {
+
   final ProfileRepository profileRepository;
-
   ProfileController({required this.profileRepository});
-
   final Rx<ProfileModel?> _profileModel = Rx<ProfileModel?>(null);
   ProfileModel? get profileModel => _profileModel.value;
-
   final RxBool _isLoading = false.obs;
   bool get isLoading => _isLoading.value;
-
   final Rx<File?> _selectedImageFile = Rx<File?>(null);
   File? get selectedImageFile => _selectedImageFile.value;
 
@@ -27,7 +25,6 @@ class ProfileController extends GetxController {
     super.onInit();
     getProfile();
   }
-
   Future<void> getProfile() async {
     _isLoading.value = true;
     update();
@@ -55,15 +52,13 @@ class ProfileController extends GetxController {
     String? lastName,
     String? email,
     bool updateImage = false,
-  }) async {
+    }) async {
     if (updateImage && _selectedImageFile.value == null) {
       _showToast('Please select an image first', isError: true);
       return;
     }
-
     _isLoading.value = true;
     update();
-
     try {
       Map<String, String> body = {
         'f_name': firstName ?? _profileModel.value?.fName ?? '',
@@ -71,19 +66,15 @@ class ProfileController extends GetxController {
         'email': email ?? _profileModel.value?.email ?? '',
         'phone': _profileModel.value?.phone ?? '',
       };
-
       if (updateImage && _selectedImageFile.value != null) {
         body['_method'] = 'PUT';
       }
-
       final response = await profileRepository.updateProfile(
         body,
         imageFile: updateImage ? _selectedImageFile.value : null,
       );
-
       String responseBody;
       int statusCode;
-
       if (response is http.StreamedResponse) {
         responseBody = await response.stream.bytesToString();
         statusCode = response.statusCode;
@@ -91,17 +82,14 @@ class ProfileController extends GetxController {
         responseBody = (response as http.Response).body;
         statusCode = response.statusCode;
       }
-
       _isLoading.value = false;
       update();
-
       if (statusCode == 200) {
         final data = jsonDecode(responseBody);
         _showToast(
           data['message'] ?? 'Profile updated successfully',
           isError: false,
         );
-
         if (updateImage) {
           _selectedImageFile.value = null;
         }
@@ -129,15 +117,11 @@ class ProfileController extends GetxController {
         maxHeight: 1024,
         imageQuality: 85,
       );
-
       if (image == null) return;
-
       _selectedImageFile.value = File(image.path);
       update();
-
-      // _showToast('Image selected. Click Update Image to save', isError: false);
     } catch (e) {
-      // _showToast('Error selecting image: ${e.toString()}', isError: true);
+      _showToast('Error selecting image: ${e.toString()}', isError: true);
     }
   }
 
@@ -153,7 +137,7 @@ class ProfileController extends GetxController {
       gravity: ToastGravity.BOTTOM,
       backgroundColor: isError ? Colors.red : Colors.green,
       textColor: Colors.white,
-      fontSize: 16.0,
+      fontSize: Dimensions.fontSizeLarge,
     );
   }
 }

@@ -49,6 +49,7 @@ class AppConstants {
   static const int maxImageSizeInMB = 5;
   static const int searchHistoryLimit = 10;
   static const int itemsPerPage = 20;
+  static const int otpResendTimer = 60;
 
   static List<LanguageModel> languages = [
     LanguageModel(languageName: 'English', countryCode: 'US', languageCode: 'en'),

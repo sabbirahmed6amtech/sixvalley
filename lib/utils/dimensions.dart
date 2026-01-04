@@ -29,6 +29,7 @@ class Dimensions {
   static const double iconSizeDefault = 24.0;
   static const double iconSizeMedium = 32.0;
   static const double iconSizeLarge = 48.0;
+  static const double iconSizeXLarge = 60.0;
 
   // Image Sizes
   static const double imageSizeSmall = 40.0;
@@ -44,6 +45,7 @@ class Dimensions {
   static const double cardHeight = 200.0;
   static const double productCardHeight = 280.0;
   static const double bannerHeight = 180.0;
+  static const double sizeBoxHeight = 24.0;
 
   // Responsive
   static const double webMaxWidth = 1200.0;

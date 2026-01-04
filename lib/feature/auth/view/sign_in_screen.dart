@@ -87,8 +87,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       Row(
                         children: [
                           SizedBox(
-                            height: 24,
-                            width: 24,
+                            height: Dimensions.sizeBoxHeight,
+                            width: Dimensions.sizeBoxHeight,
                             child: Checkbox(
                               value: _rememberMe,
                               onChanged: (value) {
